@@ -1,0 +1,311 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Claim Your Shein Gift Card</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
+
+<style>
+  :root{
+    --bg:#fff7fb;
+    --card:#ffffff;
+    --ink:#111;
+    --body:#444;
+    --line:#f1e4ef;
+    --shadow:0 10px 28px rgba(0,0,0,.08);
+
+    --pink:#ffc0cb;
+    --pink-ink:#a21e4d;
+    --pink-ghost:#ffe3ea;
+  }
+
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{
+    margin:0;
+    font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
+    background:var(--bg); color:var(--body); line-height:1.5;
+  }
+  .wrap{max-width:900px;margin:0 auto;padding:14px}
+
+  /* HERO */
+  header{
+    background:linear-gradient(180deg,#fff,#ffeef4 70%);
+    border:1px solid var(--line);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    padding:18px 14px;
+    text-align:center;
+  }
+  h1{margin:0 0 12px;color:var(--ink);font-size:28px;font-weight:800;letter-spacing:.2px}
+
+  .timer{
+    display:inline-flex;align-items:center;gap:10px;
+    background:var(--pink);color:var(--pink-ink);
+    padding:8px 16px;border-radius:999px;
+    font-weight:800;font-size:14px;
+    box-shadow:0 10px 26px rgba(255,192,203,.35);
+  }
+  .timer .tag{background:rgba(255,255,255,.6);padding:4px 10px;border-radius:999px;color:#111;font-size:12px}
+
+  /* OFFER CARD (with entry animation) */
+  .offer{
+    background:var(--card);
+    border:1px solid var(--line);
+    border-radius:18px;
+    box-shadow:var(--shadow);
+    padding:16px;
+    display:grid;
+    grid-template-columns:60px 1fr;
+    gap:14px; align-items:center;
+    margin:16px 0;
+    opacity:0; transform:translateY(12px); /* before reveal */
+  }
+  .offer.reveal{ opacity:1; transform:translateY(0); transition:opacity .45s ease, transform .45s ease; }
+
+  .logo{
+    width:60px;height:60px;border-radius:14px;background:#fff;border:1px solid #f2f2f2;object-fit:contain;
+    animation:bob 3.2s ease-in-out infinite;
+  }
+  @keyframes bob{ 0%{transform:translateY(0)} 50%{transform:translateY(-3px)} 100%{transform:translateY(0)} }
+
+  .title{margin:0;color:var(--ink);font-size:20px;font-weight:800}
+  .blurb{margin:4px 0 0;font-size:15px}
+
+  .cta{
+    grid-column:1/-1;margin-top:10px;
+    display:block;width:100%;text-align:center;text-decoration:none;
+    border:0;border-radius:999px;padding:16px 18px;
+    font-weight:900;cursor:pointer;color:var(--pink-ink);
+    background:var(--pink);
+    transition:transform .12s ease,filter .12s ease,box-shadow .12s ease;
+    animation:sheinPulse 2.1s ease-in-out infinite;
+    box-shadow:
+      0 0 0 0 rgba(255,192,203,.0),
+      0 14px 30px rgba(255,192,203,.35);
+  }
+  .cta:hover{transform:translateY(-1px);filter:brightness(.96)}
+  @keyframes sheinPulse{
+    0%  { box-shadow:0 0 0 0 rgba(255,192,203,.45), 0 14px 30px rgba(255,192,203,.35); }
+    70% { box-shadow:0 0 0 14px rgba(255,192,203,.0), 0 14px 30px rgba(255,192,203,.35); }
+    100%{ box-shadow:0 0 0 0 rgba(255,192,203,.0), 0 14px 30px rgba(255,192,203,.35); }
+  }
+
+  /* HOW IT WORKS */
+  .how{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
+    padding:16px;margin:18px 0;
+  }
+  .how h2{margin:0 0 12px;text-align:center;color:var(--ink);font-size:20px;font-weight:800}
+  .steps{display:grid;gap:12px}
+  .step{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;gap:10px;align-items:flex-start}
+  .ico{flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:#f7f7f7;display:grid;place-items:center;font-size:14px;margin-top:2px}
+  .step h3{margin:0 0 4px;font-size:16px;color:var(--ink);font-weight:700}
+  .step p{margin:0}
+
+  /* REAL CUSTOMERS – swipe one-by-one (Insta-story portrait), EXACTLY 3, NO auto-scroll */
+  .proof{
+    background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
+    padding:16px;margin:18px 0;
+  }
+  .proof h2{margin:0 0 12px;text-align:center;color:var(--ink);font-size:20px;font-weight:800}
+
+  .slider{
+    width:100%;max-width:420px;margin:0 auto; /* center */
+    border-radius:16px;border:1px solid #eee;background:#fafafa;overflow:hidden;
+  }
+  /* scroll area */
+  .slides{
+    display:flex;gap:10px;
+    overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
+    padding:10px;scrollbar-width:none;
+  }
+  .slides::-webkit-scrollbar{display:none}
+  /* each card = insta-story ratio (~9:16), swipe one-by-one */
+  .slides img{
+    flex:0 0 auto;scroll-snap-align:center;
+    width:230px;height:410px; /* portrait */
+    border-radius:14px;object-fit:cover;background:#ddd;
+  }
+
+  /* FAQ */
+  .faq{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:16px;margin:18px 0}
+  .faq h2{margin:0 0 10px;text-align:center;color:var(--ink);font-size:20px;font-weight:800}
+  details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:12px 0}
+  summary{cursor:pointer;font-weight:700;font-size:16px;position:relative;padding-right:20px}
+  summary::after{content:'+';position:absolute;right:6px;top:0;font-weight:800}
+  details[open] summary::after{content:'−'}
+  details p{margin:8px 0 0}
+
+  .rating{text-align:center;font-weight:700;color:#222;margin:16px 0 8px}
+  .foot{font-size:12px;color:#666;text-align:center;margin:16px 0}
+
+  /* Live toast — centered bottom, sticks while scrolling */
+  .toast{
+    position:fixed; bottom:14px; left:50%; z-index:40;
+    transform:translate(-50%,6px);
+    background:#fff; border:1px solid var(--line); border-radius:12px;
+    padding:8px 10px; box-shadow:var(--shadow); font-size:13px; max-width:320px;
+    opacity:0; transition:opacity .28s ease, transform .28s ease;
+    text-align:center;
+  }
+  .toast.show{opacity:1; transform:translate(-50%,0)}
+
+  @media (max-width:480px){
+    h1{font-size:24px}
+    .title{font-size:18px}
+    .slides img{width:180px;height:320px}
+  }
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <!-- HERO -->
+    <header>
+      <h1>Claim Your Shein Gift Card Below 👇🏻</h1>
+      <div class="timer"><span class="tag">Offer ends in</span> <span id="timer">24:00:00</span></div>
+    </header>
+
+    <!-- SHEIN OFFER -->
+    <section class="offer" id="sheinOffer" aria-label="Shein gift card offer">
+      <img class="logo" src="images/shein.png" alt="Shein logo" width="60" height="60" />
+      <div>
+        <p class="title">Shein Gift Card</p>
+        <p class="blurb">Enter your email, Complete quick deals & Earn giftcard!</p>
+      </div>
+      <a href="#" class="cta" aria-label="Start Now" onclick="routeShein();return false;">Start Now</a>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how" aria-label="How it works">
+      <h2>How it works</h2>
+      <div class="steps">
+        <div class="step">
+          <div class="ico">✉️</div>
+          <div>
+            <h3>Sign up with your email</h3>
+            <p>Create your account so we can track your progress and deliver your code.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="ico">📝</div>
+          <div>
+            <h3>Complete quick deals</h3>
+            <p>Finish 2–4 simple offers (surveys, app installs, etc.) to qualify faster.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="ico">🎁</div>
+          <div>
+            <h3>Get your reward</h3>
+            <p>Once verified, your Shein code is sent—done and dusted!</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- REAL CUSTOMERS (manual swipe, exactly 3 images) -->
+    <section class="proof" aria-label="Real customers">
+      <h2>Real customers vouch</h2>
+      <div class="slider">
+        <div class="slides">
+          <!-- Exactly THREE images; swipe left/right, no auto, Insta-story portrait ratio -->
+          <img src="images/review1.jpg" alt="Happy customer wearing Shein outfit" loading="lazy" />
+          <img src="images/review2.jpg" alt="Unboxing Shein package" loading="lazy" />
+          <img src="images/review3.jpg" alt="Style glow-up after shopping Shein" loading="lazy" />
+        </div>
+      </div>
+    </section>
+
+    <!-- FAQ -->
+    <section class="faq" aria-label="FAQ">
+      <h2>Frequently Asked Questions</h2>
+
+      <details>
+        <summary>Do I need a credit card?</summary>
+        <p><strong>No.</strong> You don’t need to enter any credit card details to get started. If a partner page shows a paid trial, you can skip it and choose a free offer instead. We recommend completing offers in one sitting to avoid timeouts.</p>
+      </details>
+
+      <details>
+        <summary>When will I receive my reward?</summary>
+        <p>Most users finish in 20–30 minutes and see their Shein code the same day. If you complete after-hours or the system needs a quick verification, delivery can take up to 24 hours.</p>
+      </details>
+
+      <details>
+        <summary>How many deals are required?</summary>
+        <p>Usually <strong>2–4 quick offers</strong>. The exact number appears on the partner page and your progress bar updates as you go.</p>
+      </details>
+
+      <details>
+        <summary>Trouble tracking my progress?</summary>
+        <p>Use the same email across offers, disable ad-blockers, don’t use private mode/VPN, and keep the tab open until confirmation. If something still looks off, retry a different offer—those typically track instantly.</p>
+      </details>
+    </section>
+
+    <div class="rating">⭐️ 4.8/5 • 12,847 people claimed rewards this week</div>
+    <p class="foot">©2025 shnoffers.com</p>
+  </div>
+
+  <!-- Centered live toast -->
+  <div class="toast" id="liveFeed" role="status" aria-live="polite">Mia just claimed $100 after 3 deals!</div>
+
+<script>
+  /* Countdown (24h loop) */
+  (function(){
+    const el = document.getElementById('timer');
+    let t = 24*60*60;
+    setInterval(()=>{
+      const h = String(Math.floor(t/3600)).padStart(2,'0');
+      const m = String(Math.floor((t%3600)/60)).padStart(2,'0');
+      const s = String(t%60).padStart(2,'0');
+      el.textContent = `${h}:${m}:${s}`;
+      t = (t-1+86400)%86400;
+    },1000);
+  })();
+
+  /* Offer entry reveal */
+  window.addEventListener('DOMContentLoaded',()=>{
+    requestAnimationFrame(()=> document.getElementById('sheinOffer').classList.add('reveal'));
+  });
+
+  /* Live feed (unchanged) */
+  (function(){
+    const el = document.getElementById('liveFeed');
+    const msgs = [
+      "Mia just claimed $100 after 3 deals!",
+      "Ava finished 4 deals—code sent!",
+      "Sophia got her code in 25 minutes!",
+      "Olivia finished 2 deals—instant code!"
+    ];
+    let i=0;
+    function show(t){
+      el.textContent = t;
+      el.classList.add('show');
+      setTimeout(()=> el.classList.remove('show'), 6000);
+    }
+    show(msgs[i]); i=(i+1)%msgs.length;
+    setInterval(()=> show(msgs[i++ % msgs.length]), 10000);
+  })();
+
+  /* Geo-routing for Shein (kept) */
+  const TIER1 = ["United States","United Kingdom","Canada","Australia"];
+  const SHEIN_T1 = "https://raintrcks.com/r/eyJ0Ijoic2hlaW4iLCJ0aWQiOiIwY2NmODNkMDllMzYwNjUxMTJmNiIsInRzIjoxNzc2NzU2Mzg0MDg5fQ";
+  const SHEIN_WW = "https://raintrcks.com/r/eyJ0Ijoic2hlaW4iLCJ0aWQiOiIwY2NmODNkMDllMzYwNjUxMTJmNiIsInRzIjoxNzc2NzU2Mzg0MDg5fQ";
+
+  function openNew(url){ window.open(url, "_blank", "noopener,noreferrer"); }
+  async function routeShein(){
+    try{
+      const res = await fetch('https://ipapi.co/json/');
+      const data = await res.json();
+      const c = data && data.country_name ? data.country_name : "";
+      openNew(TIER1.includes(c) ? SHEIN_T1 : SHEIN_WW);
+    }catch(e){
+      openNew(SHEIN_WW);
+    }
+  }
+</script>
+</body>
+</html>
+
