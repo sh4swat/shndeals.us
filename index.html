@@ -3,22 +3,26 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Claim Your Shein Gift Card</title>
+<title>Exclusive Online Offers</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
 
 <style>
-  :root{
-    --bg:#fff7fb;
-    --card:#ffffff;
-    --ink:#111;
-    --body:#444;
-    --line:#f1e4ef;
-    --shadow:0 10px 28px rgba(0,0,0,.08);
+  :root {
+    /* Premium Red & Black Netflix Theme Palette */
+    --bg: #000000;
+    --card: #121212;
+    --ink: #ffffff;
+    --body: #e5e5e5;
+    --line: #222222;
+    --shadow: 0 10px 30px rgba(0,0,0,0.5);
 
-    --pink:#ffc0cb;
-    --pink-ink:#a21e4d;
-    --pink-ghost:#ffe3ea;
+    --accent: #E50914; /* Brand Red */
+    --accent-hover: #b80710;
+    --accent-contrast: #ffffff;
+    --grey-light: #181818;
+    --grey-dark: #aaaaaa;
+    --border-oval: 50px;
   }
 
   *{box-sizing:border-box}
@@ -27,231 +31,463 @@
     margin:0;
     font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
     background:var(--bg); color:var(--body); line-height:1.5;
+    -webkit-font-smoothing: antialiased;
   }
-  .wrap{max-width:900px;margin:0 auto;padding:14px}
+  .wrap{max-width:550px;margin:0 auto;padding:16px}
 
   /* HERO */
   header{
-    background:linear-gradient(180deg,#fff,#ffeef4 70%);
-    border:1px solid var(--line);
-    border-radius:18px;
-    box-shadow:var(--shadow);
-    padding:18px 14px;
-    text-align:center;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 20px;
+    box-shadow: var(--shadow);
+    padding: 24px 16px;
+    text-align: center;
   }
-  h1{margin:0 0 12px;color:var(--ink);font-size:28px;font-weight:800;letter-spacing:.2px}
+  h1{margin:0 0 16px;color:var(--ink);font-size:22px;font-weight:800;letter-spacing:0.3px;text-transform:uppercase}
 
   .timer{
-    display:inline-flex;align-items:center;gap:10px;
-    background:var(--pink);color:var(--pink-ink);
-    padding:8px 16px;border-radius:999px;
-    font-weight:800;font-size:14px;
-    box-shadow:0 10px 26px rgba(255,192,203,.35);
+    display:inline-flex;align-items:center;gap:8px;
+    background:#1f1f1f;color:var(--accent-contrast);
+    padding:8px 18px;border-radius:var(--border-oval);
+    font-weight:700;font-size:11px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    border: 1px solid var(--line);
   }
-  .timer .tag{background:rgba(255,255,255,.6);padding:4px 10px;border-radius:999px;color:#111;font-size:12px}
+  .timer .tag{background:rgba(229,9,20,0.15);padding:3px 10px;border-radius:var(--border-oval);color:var(--accent);font-size:11px;font-weight:800}
 
-  /* OFFER CARD (with entry animation) */
+  /* OFFER CARD */
   .offer{
     background:var(--card);
     border:1px solid var(--line);
-    border-radius:18px;
+    border-radius:20px;
     box-shadow:var(--shadow);
-    padding:16px;
+    padding:20px;
     display:grid;
-    grid-template-columns:60px 1fr;
-    gap:14px; align-items:center;
+    grid-template-columns:70px 1fr;
+    gap:16px; align-items:center;
     margin:16px 0;
-    opacity:0; transform:translateY(12px); /* before reveal */
+    opacity:0; transform:translateY(12px);
   }
   .offer.reveal{ opacity:1; transform:translateY(0); transition:opacity .45s ease, transform .45s ease; }
 
-  .logo{
-    width:60px;height:60px;border-radius:14px;background:#fff;border:1px solid #f2f2f2;object-fit:contain;
-    animation:bob 3.2s ease-in-out infinite;
+  /* Perfectly static, aesthetic Logo container */
+  .logo-container {
+    width:70px;
+    height:70px;
+    border-radius:18px;
+    background:#000;
+    color:#fff;
+    display:grid;
+    place-items:center;
+    font-weight:800;
+    font-size:12px;
+    letter-spacing:0.8px;
+    border:1px solid var(--line);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+    transition: background-color 0.3s ease, color 0.3s ease;
   }
-  @keyframes bob{ 0%{transform:translateY(0)} 50%{transform:translateY(-3px)} 100%{transform:translateY(0)} }
 
-  .title{margin:0;color:var(--ink);font-size:20px;font-weight:800}
-  .blurb{margin:4px 0 0;font-size:15px}
+  .title{margin:0;color:var(--ink);font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:0.3px}
+  .blurb{margin:6px 0 0;font-size:15px;font-weight:600;color:var(--grey-dark)}
 
+  /* CTA Button with high-performance breathing & soft-glow scale animation */
   .cta{
-    grid-column:1/-1;margin-top:10px;
+    grid-column:1/-1;margin-top:12px;
     display:block;width:100%;text-align:center;text-decoration:none;
-    border:0;border-radius:999px;padding:16px 18px;
-    font-weight:900;cursor:pointer;color:var(--pink-ink);
-    background:var(--pink);
-    transition:transform .12s ease,filter .12s ease,box-shadow .12s ease;
-    animation:sheinPulse 2.1s ease-in-out infinite;
-    box-shadow:
-      0 0 0 0 rgba(255,192,203,.0),
-      0 14px 30px rgba(255,192,203,.35);
+    border:0;border-radius:var(--border-oval);padding:16px 18px;
+    font-weight:700;cursor:pointer;color:var(--accent-contrast);
+    background:var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    font-size: 14px;
+    transition: background-color .2s ease, transform .2s ease, box-shadow .2s ease;
+    animation: premiumCTAForce 2.4s ease-in-out infinite;
   }
-  .cta:hover{transform:translateY(-1px);filter:brightness(.96)}
-  @keyframes sheinPulse{
-    0%  { box-shadow:0 0 0 0 rgba(255,192,203,.45), 0 14px 30px rgba(255,192,203,.35); }
-    70% { box-shadow:0 0 0 14px rgba(255,192,203,.0), 0 14px 30px rgba(255,192,203,.35); }
-    100%{ box-shadow:0 0 0 0 rgba(255,192,203,.0), 0 14px 30px rgba(255,192,203,.35); }
+  .cta:hover{background:var(--accent-hover); transform:scale(1.04) !important;}
+  .cta:active{transform:scale(0.98) !important;}
+  
+  @keyframes premiumCTAForce {
+    0% {
+      transform: scale(1);
+      box-shadow: 0 4px 12px rgba(229, 9, 20, 0.2), 0 0 0 0 rgba(229, 9, 20, 0.2);
+    }
+    50% {
+      transform: scale(1.035);
+      box-shadow: 0 12px 24px rgba(229, 9, 20, 0.4), 0 0 0 8px rgba(229, 9, 20, 0.0);
+    }
+    100% {
+      transform: scale(1);
+      box-shadow: 0 4px 12px rgba(229, 9, 20, 0.2), 0 0 0 0 rgba(229, 9, 20, 0.2);
+    }
   }
 
   /* HOW IT WORKS */
-  .how{
-    background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
-    padding:16px;margin:18px 0;
-  }
-  .how h2{margin:0 0 12px;text-align:center;color:var(--ink);font-size:20px;font-weight:800}
+  .how{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:20px;margin:16px 0}
+  .how h2{margin:0 0 16px;text-align:center;color:var(--ink);font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:0.3px}
   .steps{display:grid;gap:12px}
-  .step{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px;display:flex;gap:10px;align-items:flex-start}
-  .ico{flex:0 0 auto;width:28px;height:28px;border-radius:8px;background:#f7f7f7;display:grid;place-items:center;font-size:14px;margin-top:2px}
-  .step h3{margin:0 0 4px;font-size:16px;color:var(--ink);font-weight:700}
-  .step p{margin:0}
+  .step{background:var(--grey-light);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:flex-start}
+  .ico{flex:0 0 auto;width:32px;height:32px;border-radius:10px;background:#111;border:1px solid var(--line);display:grid;place-items:center;font-size:14px}
+  .step h3{margin:0 0 4px;font-size:14px;color:var(--ink);font-weight:700}
+  .step p{margin:0;font-size:13px;color:var(--grey-dark)}
 
-  /* REAL CUSTOMERS – swipe one-by-one (Insta-story portrait), EXACTLY 3, NO auto-scroll */
-  .proof{
-    background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);
-    padding:16px;margin:18px 0;
+  /* DYNAMIC TIERS INFO BADGE */
+  .value-badge {
+    background: #181818;
+    color: #ffffff;
+    border: 1px solid var(--line);
+    text-align: center;
+    border-radius: 12px;
+    padding: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    margin-top: 14px;
+    letter-spacing: 0.2px;
   }
-  .proof h2{margin:0 0 12px;text-align:center;color:var(--ink);font-size:20px;font-weight:800}
 
-  .slider{
-    width:100%;max-width:420px;margin:0 auto; /* center */
-    border-radius:16px;border:1px solid #eee;background:#fafafa;overflow:hidden;
-  }
-  /* scroll area */
-  .slides{
-    display:flex;gap:10px;
-    overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;
-    padding:10px;scrollbar-width:none;
-  }
+  /* REAL CUSTOMERS */
+  .proof{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:20px;margin:16px 0}
+  .proof h2{margin:0 0 16px;text-align:center;color:var(--ink);font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:0.3px}
+
+  .slider{width:100%;max-width:100%;margin:0 auto;border-radius:14px;border:1px solid var(--line);background:var(--grey-light);overflow:hidden}
+  .slides{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:12px;scrollbar-width:none}
   .slides::-webkit-scrollbar{display:none}
-  /* each card = insta-story ratio (~9:16), swipe one-by-one */
-  .slides img{
-    flex:0 0 auto;scroll-snap-align:center;
-    width:230px;height:410px; /* portrait */
-    border-radius:14px;object-fit:cover;background:#ddd;
-  }
+  .slides img{flex:0 0 auto;scroll-snap-align:center;width:240px;height:426px;border-radius:10px;object-fit:cover;background:#222;border:1px solid var(--line)}
 
   /* FAQ */
-  .faq{background:var(--card);border:1px solid var(--line);border-radius:18px;box-shadow:var(--shadow);padding:16px;margin:18px 0}
-  .faq h2{margin:0 0 10px;text-align:center;color:var(--ink);font-size:20px;font-weight:800}
-  details{background:#fff;border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:12px 0}
-  summary{cursor:pointer;font-weight:700;font-size:16px;position:relative;padding-right:20px}
-  summary::after{content:'+';position:absolute;right:6px;top:0;font-weight:800}
+  .faq{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:20px;margin:16px 0}
+  .faq h2{margin:0 0 16px;text-align:center;color:var(--ink);font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:0.3px}
+  details{background:var(--grey-light);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
+  summary{cursor:pointer;font-weight:700;font-size:14px;color:var(--ink);position:relative;padding-right:20px;list-style:none}
+  summary::-webkit-details-marker{display:none}
+  summary::after{content:'+';position:absolute;right:6px;top:0;font-weight:700;font-size:16px;color:var(--accent)}
   details[open] summary::after{content:'−'}
-  details p{margin:8px 0 0}
+  
+  .details-content {margin-top: 10px;border-top: 1px solid var(--line);padding-top: 10px}
+  .details-ans-main {display: block;font-size: 14px;color: #ffffff;font-weight: 700;line-height: 1.4;margin-bottom: 6px}
+  .details-ans-sub {display: block;font-size: 13px;color: var(--grey-dark);line-height: 1.5}
 
-  .rating{text-align:center;font-weight:700;color:#222;margin:16px 0 8px}
-  .foot{font-size:12px;color:#666;text-align:center;margin:16px 0}
+  .rating{text-align:center;font-weight:700;color:var(--ink);margin:24px 0 8px;font-size:13px;letter-spacing:0.2px}
+  .foot{font-size:11px;color:var(--grey-dark);text-align:center;margin:16px 0;letter-spacing:0.5px}
 
-  /* Live toast — centered bottom, sticks while scrolling */
+  /* Live toast - Oval Styling */
   .toast{
-    position:fixed; bottom:14px; left:50%; z-index:40;
+    position:fixed; bottom:16px; left:50%; z-index:40;
     transform:translate(-50%,6px);
-    background:#fff; border:1px solid var(--line); border-radius:12px;
-    padding:8px 10px; box-shadow:var(--shadow); font-size:13px; max-width:320px;
+    background:var(--card); color:#fff; border:1px solid var(--line); border-radius:var(--border-oval);
+    padding:10px 22px; box-shadow:0 8px 24px rgba(0,0,0,0.8); font-size:12px; max-width:340px; width:90%;
     opacity:0; transition:opacity .28s ease, transform .28s ease;
-    text-align:center;
+    text-align:center; font-weight: 600; letter-spacing: 0.2px;
   }
   .toast.show{opacity:1; transform:translate(-50%,0)}
 
+  /* MODAL STYLES */
+  .modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0, 0, 0, 0.85);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+  }
+  .modal-overlay.show {
+    opacity: 1;
+    pointer-events: auto;
+  }
+  .modal {
+    background: #121212;
+    border: 1px solid #E50914;
+    border-radius: 20px;
+    padding: 30px 24px;
+    max-width: 420px;
+    width: 100%;
+    text-align: center;
+    box-shadow: 0 10px 40px rgba(229, 9, 20, 0.25);
+    transform: scale(0.9);
+    transition: transform 0.3s ease;
+  }
+  .modal-overlay.show .modal {
+    transform: scale(1);
+  }
+  .modal-title {
+    color: #E50914;
+    font-size: 20px;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin: 0 0 14px;
+    letter-spacing: 0.5px;
+  }
+  .modal-text {
+    font-size: 14px;
+    color: #e5e5e5;
+    line-height: 1.6;
+    margin-bottom: 24px;
+  }
+  .modal-btn {
+    display: inline-block;
+    width: 100%;
+    padding: 14px;
+    background: #E50914;
+    color: #ffffff;
+    border: none;
+    border-radius: var(--border-oval);
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: background-color 0.2s ease;
+  }
+  .modal-btn:hover {
+    background-color: #b80710;
+  }
+
   @media (max-width:480px){
-    h1{font-size:24px}
-    .title{font-size:18px}
-    .slides img{width:180px;height:320px}
+    h1{font-size:18px}
+    .title{font-size:15px}
+    .slides img{width:200px;height:355px}
   }
 </style>
 </head>
 <body>
+
+  <!-- DYNAMIC GEO REDIRECT MODAL -->
+  <div class="modal-overlay" id="geoModal">
+    <div class="modal">
+      <div class="modal-title">Notice ⚠️</div>
+      <div class="modal-text">
+        Since you aren't from the USA, UK, CA, or AU, you aren't eligible for the Shein offer.<br><br>
+        But instead, we have something even better! You can apply for our open <strong>Netflix Movie Reviewer</strong> position.
+      </div>
+      <button class="modal-btn" onclick="closeGeoModal()">OK</button>
+    </div>
+  </div>
+
   <div class="wrap">
     <!-- HERO -->
     <header>
-      <h1>Claim Your Shein Gift Card Below 👇🏻</h1>
+      <h1 id="promoHeader">Claim Your Shein Gift Card Below 👇🏻</h1>
       <div class="timer"><span class="tag">Offer ends in</span> <span id="timer">24:00:00</span></div>
     </header>
 
-    <!-- SHEIN OFFER -->
-    <section class="offer" id="sheinOffer" aria-label="Shein gift card offer">
-      <img class="logo" src="shein.png" alt="Shein logo" width="60" height="60" />
+    <!-- MAIN OFFER BLOCK -->
+    <section class="offer" id="sheinOffer" aria-label="Main offer presentation">
+      <div class="logo-container" id="promoLogo">SHEIN</div>
       <div>
-        <p class="title">Shein Gift Card</p>
-        <p class="blurb">Enter your email, Complete quick deals & Earn giftcard!</p>
+        <p class="title" id="promoTitle">Shein Gift Card</p>
+        <p class="blurb" id="promoBlurb">Enter your email, Complete quick deals & Earn giftcard! 🎁</p>
       </div>
-      <a href="#" class="cta" aria-label="Start Now" onclick="routeShein();return false;">Start Now</a>
+      <a href="#" class="cta" id="promoCTA" aria-label="Start Now" onclick="routeOffer();return false;">Start Now</a>
     </section>
 
     <!-- HOW IT WORKS -->
     <section class="how" aria-label="How it works">
-      <h2>How it works</h2>
+      <h2 id="howItWorksHeader">How it works</h2>
       <div class="steps">
         <div class="step">
-          <div class="ico">✉️</div>
+          <div class="ico" id="step1Icon">✉️</div>
           <div>
-            <h3>Sign up with your email</h3>
-            <p>Create your account so we can track your progress and deliver your code.</p>
+            <h3 id="step1Title">Sign up with your email</h3>
+            <p id="step1Desc">Create your account so we can track your progress and deliver your rewards.</p>
           </div>
         </div>
         <div class="step">
-          <div class="ico">📝</div>
+          <div class="ico" id="step2Icon">📝</div>
           <div>
-            <h3>Complete quick deals</h3>
-            <p>Finish 2–4 simple offers (surveys, app installs, etc.) to qualify faster.</p>
+            <h3 id="step2Title">Complete quick deals</h3>
+            <p id="step2Desc">Finish simple partner offers (surveys, app installs, or casual games) to qualify.</p>
           </div>
         </div>
         <div class="step">
-          <div class="ico">🎁</div>
+          <div class="ico" id="step3Icon">🎁</div>
           <div>
-            <h3>Get your reward</h3>
-            <p>Once verified, your Shein code is sent—done and dusted!</p>
+            <h3 id="step3Title">Get your reward</h3>
+            <p id="step3Desc">Once verified, your code is processed. Done and dusted!</p>
           </div>
         </div>
       </div>
+      
+      <div class="value-badge" id="promoValueMessage">
+        💡 Pro-Tip: The more quick deals you complete, the higher the total value of your final rewards!
+      </div>
     </section>
 
-    <!-- REAL CUSTOMERS (manual swipe, exactly 3 images) -->
-    <section class="proof" aria-label="Real customers">
-      <h2>Real customers vouch</h2>
+    <!-- REAL CUSTOMERS (Identified by ID for dynamic layout removals) -->
+    <section class="proof" id="proofSection" aria-label="Real customers">
+      <h2 id="promoSocialHeader">Real customers vouch</h2>
       <div class="slider">
         <div class="slides">
-          <!-- Exactly THREE images; swipe left/right, no auto, Insta-story portrait ratio -->
-          <img src="review1.jpg" alt="Happy customer wearing Shein outfit" loading="lazy" />
-          <img src="review2.jpg" alt="Unboxing Shein package" loading="lazy" />
-          <img src="review3.jpg" alt="Style glow-up after shopping Shein" loading="lazy" />
+          <img src="images/review1.jpg" alt="Proof presentation 1" loading="lazy" />
+          <img src="images/review2.jpg" alt="Proof presentation 2" loading="lazy" />
+          <img src="images/review3.jpg" alt="Proof presentation 3" loading="lazy" />
         </div>
       </div>
     </section>
 
     <!-- FAQ -->
     <section class="faq" aria-label="FAQ">
-      <h2>Frequently Asked Questions</h2>
+      <h2 id="faqMainHeader">Frequently Asked Questions</h2>
 
       <details>
-        <summary>Do I need a credit card?</summary>
-        <p><strong>No.</strong> You don’t need to enter any credit card details to get started. If a partner page shows a paid trial, you can skip it and choose a free offer instead. We recommend completing offers in one sitting to avoid timeouts.</p>
+        <summary id="faqQ1">Do I need a credit card?</summary>
+        <div class="details-content">
+          <span class="details-ans-main" id="faqA1Main">No credit card details are required to get started.</span>
+          <span class="details-ans-sub" id="faqA1Sub">If a partner brand landing page displays a paid trial, simply skip past it and pick a free deal choice instead. Completing all processes in one continuous sitting avoids progress tracking timeouts.</span>
+        </div>
       </details>
 
       <details>
-        <summary>When will I receive my reward?</summary>
-        <p>Most users finish in 20–30 minutes and see their Shein code the same day. If you complete after-hours or the system needs a quick verification, delivery can take up to 24 hours.</p>
+        <summary id="faqQ2">When will I receive my reward?</summary>
+        <div class="details-content">
+          <span class="details-ans-main" id="faqA2Main">Most users complete verification in 20–30 minutes to claim rewards the same day.</span>
+          <span class="details-ans-sub" id="faqA2Sub">If rewards are completed during off-peak hours or extra system verification checks trigger, standard secure delivery processes can require up to 24 hours.</span>
+        </div>
       </details>
 
       <details>
-        <summary>How many deals are required?</summary>
-        <p>Usually <strong>2–4 quick offers</strong>. The exact number appears on the partner page and your progress bar updates as you go.</p>
+        <summary id="faqQ3">How many deals are required?</summary>
+        <div class="details-content">
+          <span class="details-ans-main" id="faqA3Main">Usually 2–4 quick completed promotional offers are needed.</span>
+          <span class="details-ans-sub" id="faqA3Sub">The concrete number dynamically tracks on the live partner balance page as you interact with tasks.</span>
+        </div>
       </details>
 
       <details>
-        <summary>Trouble tracking my progress?</summary>
-        <p>Use the same email across offers, disable ad-blockers, don’t use private mode/VPN, and keep the tab open until confirmation. If something still looks off, retry a different offer—those typically track instantly.</p>
+        <summary id="faqQ4">Trouble tracking my progress?</summary>
+        <div class="details-content">
+          <span class="details-ans-main" id="faqA4Main">Ensure you register with the identical email address across each individual offer page.</span>
+          <span class="details-ans-sub" id="faqA4Sub">Deactivate all ad-blockers, avoid navigating inside private/incognito tabs, disable active VPN tunnels, and do not close your original dashboard tabs until all confirmations load.</span>
+        </div>
       </details>
     </section>
 
-    <div class="rating">⭐️ 4.8/5 • 12,847 people claimed rewards this week</div>
-    <p class="foot">©2025 shnoffers.com</p>
+    <div class="rating" id="ratingText">⭐️ 4.8/5 • 12,847 people claimed rewards this week</div>
+    <p class="foot">©2026 shnoffers.com</p>
   </div>
 
   <!-- Centered live toast -->
-  <div class="toast" id="liveFeed" role="status" aria-live="polite">Mia just claimed $100 after 3 deals!</div>
+  <div class="toast" id="liveFeed" role="status" aria-live="polite">Mia earned a $250 card after 3 deals!</div>
 
 <script>
+  /* --- WHITE LIST LINKS (USA, CA, AU, UK Only) --- */
+  const LINK_US_CA_AU = "https://trksy.org/aff_c?offer_id=1836&aff_id=22290";
+  const LINK_UK       = "https://trksy.org/aff_c?offer_id=1147&aff_id=22290";
+
+  /* --- GLOBAL FALLBACK LINK (Nepal + All Other Countries get the Netflix Job Offer) --- */
+  const LINK_NETFLIX_JOB = "https://giftclick.org/aff_c?offer_id=4721&aff_id=22290";
+
+  let targetAffiliateLink = LINK_NETFLIX_JOB;
+  let isNetflixLayout = false;
+  let activeCurrencySymbol = "$";
+
+  async function initGeoEngine() {
+    try {
+      const response = await fetch('https://ipapi.co/json/');
+      if (!response.ok) throw new Error("API call failed");
+      
+      const data = await response.json();
+      const countryCode = data && data.country_code ? data.country_code.toUpperCase() : "";
+
+      // 4-Country Whitelist check (USA, CA, AU, UK)
+      if (["US", "CA", "AU"].includes(countryCode)) {
+        targetAffiliateLink = LINK_US_CA_AU;
+      } else if (countryCode === "GB" || countryCode === "UK") {
+        targetAffiliateLink = LINK_UK;
+        activeCurrencySymbol = "£";
+      } else {
+        // Nepal & All Other Worldwide Countries get Netflix Layout + Dialog Modal
+        targetAffiliateLink = LINK_NETFLIX_JOB;
+        isNetflixLayout = true;
+        applyNetflixLayoutEngine(); 
+        showGeoModal();
+      }
+    } catch (error) {
+      console.warn("API Error. Defaulting to Netflix Portal fallback.", error);
+      isNetflixLayout = true;
+      applyNetflixLayoutEngine();
+      showGeoModal();
+    }
+  }
+
+  function showGeoModal() {
+    document.getElementById("geoModal").classList.add("show");
+  }
+
+  function closeGeoModal() {
+    document.getElementById("geoModal").classList.remove("show");
+  }
+
+  /* Dynamically shifts UI into a high-converting WFH Netflix Movie Reviewer job page */
+  function applyNetflixLayoutEngine() {
+    document.getElementById("promoHeader").innerHTML = "Netflix Movie Reviewer Openings 👇🏻";
+    
+    const logo = document.getElementById("promoLogo");
+    logo.textContent = "NETFLIX";
+    logo.style.background = "#E50914"; // Netflix Red
+    logo.style.color = "#FFFFFF";
+    logo.style.fontSize = "10px";
+    
+    document.getElementById("promoTitle").textContent = "Netflix Movie Reviewer";
+    document.getElementById("promoBlurb").innerHTML = "Enter your email, Review trending titles & Earn streaming wages! 🎬";
+    document.getElementById("promoCTA").textContent = "Apply For Position";
+    
+    // Completely remove the Review/Proof section from the layout
+    const proofSection = document.getElementById("proofSection");
+    if (proofSection) {
+      proofSection.style.display = "none";
+    }
+    
+    // Rewrite "How it works"
+    document.getElementById("howItWorksHeader").textContent = "Onboarding Process";
+    document.getElementById("step1Icon").textContent = "📋";
+    document.getElementById("step1Title").textContent = "Submit Contact Details";
+    document.getElementById("step1Desc").textContent = "Submit your active email address below to initiate application routing parameters.";
+    
+    document.getElementById("step2Icon").textContent = "🍿";
+    document.getElementById("step2Title").textContent = "Watch & Review Titles";
+    document.getElementById("step2Desc").textContent = "Log performance entries by tracking streaming clips and filing baseline consumer opinions.";
+    
+    document.getElementById("step3Icon").textContent = "💰";
+    document.getElementById("step3Title").textContent = "Secure Project Payouts";
+    document.getElementById("step3Desc").textContent = "Process task approvals cleanly to execute regular direct banking transfers.";
+    
+    document.getElementById("promoValueMessage").textContent = "💡 Pro-Tip: Finalizing initial task benchmarks right away yields faster clearance cycles within your remote user panel!";
+    
+    // Rewrite FAQs for Netflix layout
+    document.getElementById("faqMainHeader").textContent = "Application FAQs";
+    document.getElementById("faqQ1").textContent = "Is prior experience required?";
+    document.getElementById("faqA1Main").textContent = "No formal evaluation backgrounds are needed to apply.";
+    document.getElementById("faqA1Sub").textContent = "All training material templates are handled seamlessly inside your active applicant portal interface.";
+    
+    document.getElementById("faqQ2").textContent = "How fast can I secure an opening?";
+    document.getElementById("faqA2Main").textContent = "Onboarding profiles generally process live within 15–20 minutes.";
+    document.getElementById("faqA2Sub").textContent = "Ensure your registration strings are typed accurately to bypass queue automation delays.";
+    
+    document.getElementById("faqQ3").textContent = "What is the baseline payment schedule?";
+    document.getElementById("faqA3Main").textContent = "Wages settle dynamically as target review milestones finish.";
+    document.getElementById("faqA3Sub").textContent = "Daily progress returns transfer straight out to verified payment nodes linked during project setup.";
+    
+    document.getElementById("faqQ4").textContent = "Form errors or timeout glitches?";
+    document.getElementById("faqA4Main").textContent = "Execute entire registration runs inside a single active tab.";
+    document.getElementById("faqA4Sub").textContent = "Keep incognito layers closed, drop active VPN endpoints, and allow cookies to secure pipeline analytics perfectly.";
+
+    document.getElementById("ratingText").textContent = "⭐️ 4.9/5 • 9,248 reviewers accepted this week";
+  }
+
+  function openNew(url){ 
+    window.open(url, "_blank", "noopener,noreferrer"); 
+  }
+
+  function routeOffer(){
+    openNew(targetAffiliateLink);
+  }
+
   /* Countdown (24h loop) */
   (function(){
     const el = document.getElementById('timer');
@@ -265,46 +501,55 @@
     },1000);
   })();
 
-  /* Offer entry reveal */
+  /* Dynamic Presentation Init */
   window.addEventListener('DOMContentLoaded',()=>{
+    initGeoEngine();
     requestAnimationFrame(()=> document.getElementById('sheinOffer').classList.add('reveal'));
   });
 
-  /* Live feed (unchanged) */
+  /* Dynamic Social Proof Feed Loop */
   (function(){
     const el = document.getElementById('liveFeed');
-    const msgs = [
-      "Mia just claimed $100 after 3 deals!",
-      "Ava finished 4 deals—code sent!",
-      "Sophia got her code in 25 minutes!",
-      "Olivia finished 2 deals—instant code!"
-    ];
-    let i=0;
+    let i = 0;
+    
     function show(t){
       el.textContent = t;
       el.classList.add('show');
-      setTimeout(()=> el.classList.remove('show'), 6000);
+      setTimeout(()=> el.classList.remove('show'), 4500);
     }
-    show(msgs[i]); i=(i+1)%msgs.length;
-    setInterval(()=> show(msgs[i++ % msgs.length]), 10000);
+    
+    setTimeout(() => {
+      const msgs = isNetflixLayout ? [
+        "Mia earned $35/hr reviewing today!",
+        "Ava secured a remote spot just now!",
+        "Sophia cleared $120 task payout!",
+        "Olivia onboarded in 10 minutes!"
+      ] : [
+        `Mia earned a ${activeCurrencySymbol}250 card after 3 deals!`,
+        `Ava earned a ${activeCurrencySymbol}750 card after 5 deals!`,
+        `Sophia claimed a ${activeCurrencySymbol}100 card in 25 mins!`,
+        `Olivia earned a ${activeCurrencySymbol}100 card just now!`
+      ];
+      
+      show(msgs[i]); 
+      i = (i + 1) % msgs.length;
+      
+      setInterval(() => {
+        const structuralMsgs = isNetflixLayout ? [
+          "Mia earned $35/hr reviewing today!",
+          "Ava secured a remote spot just now!",
+          "Sophia cleared $120 task payout!",
+          "Olivia onboarded in 10 minutes!"
+        ] : [
+          `Mia earned a ${activeCurrencySymbol}250 card after 3 deals!`,
+          `Ava earned a ${activeCurrencySymbol}750 card after 5 deals!`,
+          `Sophia claimed a ${activeCurrencySymbol}100 card in 25 mins!`,
+          `Olivia earned a ${activeCurrencySymbol}100 card just now!`
+        ];
+        show(structuralMsgs[i++ % structuralMsgs.length]);
+      }, 8500);
+    }, 1500);
   })();
-
-  /* Geo-routing for Shein (kept) */
-  const TIER1 = ["United States","United Kingdom","Canada","Australia"];
-  const SHEIN_T1 = "https://trksy.org/aff_c?offer_id=1836&aff_id=22290";
-  const SHEIN_WW = "https://taprkr.com/r/eyJ0Ijoic2hlaW4iLCJ0aWQiOiIwY2NmODNkMDllMzYwNjUxMTJmNiIsInRzIjoxNzc5MDQ5NzAwNDMwLCJhIjoiMTAwIn0";
-
-  function openNew(url){ window.open(url, "_blank", "noopener,noreferrer"); }
-  async function routeShein(){
-    try{
-      const res = await fetch('https://ipapi.co/json/');
-      const data = await res.json();
-      const c = data && data.country_name ? data.country_name : "";
-      openNew(TIER1.includes(c) ? SHEIN_T1 : SHEIN_WW);
-    }catch(e){
-      openNew(SHEIN_WW);
-    }
-  }
 </script>
 </body>
 </html>
