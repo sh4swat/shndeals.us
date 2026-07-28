@@ -3,26 +3,82 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Exclusive Online Offers</title>
+<title id="pageTitle">Claim Your Shein Gift Card</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700;800&display=swap" rel="stylesheet" />
 
-<style>
+<style id="themeStyles">
   :root {
-    /* Premium Red & Black Netflix Theme Palette */
+    /* Shein Light Theme */
+    --bg: #f8f8f8;
+    --card: #ffffff;
+    --ink: #000000;
+    --body: #1a1a1a;
+    --line: #ededed;
+    --shadow: 0 8px 24px rgba(0,0,0,0.06);
+
+    --accent: #000000;
+    --accent-contrast: #ffffff;
+    --grey-light: #f4f4f4;
+    --grey-dark: #444444;
+    --border-oval: 50px;
+    --cta-grad: #000000;
+    
+    --badge-bg: #000000;
+    --badge-text: #ffffff;
+    --toast-bg: #000000;
+    --toast-text: #ffffff;
+    --payout-bg: rgba(0, 200, 83, 0.12);
+    --payout-color: #00a843;
+    --payout-border: rgba(0, 200, 83, 0.25);
+  }
+
+  /* Teststar Dark Theme Overrides */
+  body.theme-teststar {
+    --bg: #0b071e;
+    --card: #150d36;
+    --ink: #ffffff;
+    --body: #e4e0ff;
+    --line: #2a1b63;
+    --shadow: 0 10px 30px rgba(127, 81, 255, 0.22);
+
+    --accent: #7f51ff;
+    --accent-contrast: #ffffff;
+    --grey-light: #1f144d;
+    --grey-dark: #b8acff;
+    --cta-grad: linear-gradient(90deg, #7f51ff 0%, #9b72ff 100%);
+    
+    --badge-bg: #1f144d;
+    --badge-text: #ffffff;
+    --toast-bg: #1f144d;
+    --toast-text: #ffffff;
+    --payout-bg: rgba(0, 230, 118, 0.15);
+    --payout-color: #00e676;
+    --payout-border: rgba(0, 230, 118, 0.3);
+  }
+
+  /* Netflix Dark Theme Overrides */
+  body.theme-netflix {
     --bg: #000000;
     --card: #121212;
     --ink: #ffffff;
     --body: #e5e5e5;
     --line: #222222;
-    --shadow: 0 10px 30px rgba(0,0,0,0.5);
+    --shadow: 0 10px 30px rgba(229, 9, 20, 0.2);
 
-    --accent: #E50914; /* Brand Red */
-    --accent-hover: #b80710;
+    --accent: #E50914;
     --accent-contrast: #ffffff;
     --grey-light: #181818;
     --grey-dark: #aaaaaa;
-    --border-oval: 50px;
+    --cta-grad: #E50914;
+    
+    --badge-bg: #181818;
+    --badge-text: #ffffff;
+    --toast-bg: #181818;
+    --toast-text: #ffffff;
+    --payout-bg: rgba(229, 9, 20, 0.15);
+    --payout-color: #ff333d;
+    --payout-border: rgba(229, 9, 20, 0.3);
   }
 
   *{box-sizing:border-box}
@@ -32,7 +88,10 @@
     font-family:Poppins,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
     background:var(--bg); color:var(--body); line-height:1.5;
     -webkit-font-smoothing: antialiased;
+    opacity: 0;
+    transition: opacity 0.3s ease;
   }
+  body.loaded { opacity: 1; }
   .wrap{max-width:550px;margin:0 auto;padding:16px}
 
   /* HERO */
@@ -46,16 +105,24 @@
   }
   h1{margin:0 0 16px;color:var(--ink);font-size:22px;font-weight:800;letter-spacing:0.3px;text-transform:uppercase}
 
+  /* TIMER */
   .timer{
     display:inline-flex;align-items:center;gap:8px;
-    background:#1f1f1f;color:var(--accent-contrast);
+    background:var(--grey-light);
+    color:var(--ink) !important;
+    border: 1px solid var(--line);
     padding:8px 18px;border-radius:var(--border-oval);
     font-weight:700;font-size:11px;
     letter-spacing: 0.8px;
     text-transform: uppercase;
-    border: 1px solid var(--line);
   }
-  .timer .tag{background:rgba(229,9,20,0.15);padding:3px 10px;border-radius:var(--border-oval);color:var(--accent);font-size:11px;font-weight:800}
+  .timer .tag{
+    background:var(--accent);
+    padding:3px 10px;
+    border-radius:var(--border-oval);
+    color:var(--accent-contrast) !important;
+    font-size:11px;
+  }
 
   /* OFFER CARD */
   .offer{
@@ -72,70 +139,93 @@
   }
   .offer.reveal{ opacity:1; transform:translateY(0); transition:opacity .45s ease, transform .45s ease; }
 
-  /* Perfectly static, aesthetic Logo container */
+  /* LOGO CONTAINER */
   .logo-container {
     width:70px;
     height:70px;
     border-radius:18px;
-    background:#000;
-    color:#fff;
-    display:grid;
-    place-items:center;
+    background:#000000;
+    color:#ffffff;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap: 2px;
     font-weight:800;
     font-size:12px;
     letter-spacing:0.8px;
     border:1px solid var(--line);
-    box-shadow: 0 4px 12px rgba(0,0,0,0.4);
-    transition: background-color 0.3s ease, color 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+    text-align: center;
   }
+  body.theme-teststar .logo-container {
+    background: linear-gradient(135deg, #7f51ff 0%, #4f22e2 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(127, 81, 255, 0.4);
+    font-size: 10px;
+  }
+  body.theme-netflix .logo-container {
+    background: #E50914;
+    color: #ffffff;
+    box-shadow: 0 4px 16px rgba(229, 9, 20, 0.4);
+    font-size: 10px;
+  }
+  .logo-container svg { width: 28px; height: 28px; fill: #ffffff; }
 
   .title{margin:0;color:var(--ink);font-size:17px;font-weight:800;text-transform:uppercase;letter-spacing:0.3px}
-  .blurb{margin:6px 0 0;font-size:15px;font-weight:600;color:var(--grey-dark)}
+  .blurb{margin:6px 0 0;font-size:15px;font-weight:600;color:var(--body)}
 
-  /* CTA Button with high-performance breathing & soft-glow scale animation */
+  /* CTA Button */
   .cta{
     grid-column:1/-1;margin-top:12px;
     display:block;width:100%;text-align:center;text-decoration:none;
     border:0;border-radius:var(--border-oval);padding:16px 18px;
     font-weight:700;cursor:pointer;color:var(--accent-contrast);
-    background:var(--accent);
+    background:var(--cta-grad);
     text-transform: uppercase;
     letter-spacing: 1.5px;
     font-size: 14px;
     transition: background-color .2s ease, transform .2s ease, box-shadow .2s ease;
     animation: premiumCTAForce 2.4s ease-in-out infinite;
   }
-  .cta:hover{background:var(--accent-hover); transform:scale(1.04) !important;}
+  .cta:hover{background:#222222; transform:scale(1.04) !important;}
+  body.theme-teststar .cta:hover { background: #6934ff; }
+  body.theme-netflix .cta:hover { background: #b80710; }
   .cta:active{transform:scale(0.98) !important;}
   
   @keyframes premiumCTAForce {
     0% {
       transform: scale(1);
-      box-shadow: 0 4px 12px rgba(229, 9, 20, 0.2), 0 0 0 0 rgba(229, 9, 20, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 0 rgba(0, 0, 0, 0.12);
     }
     50% {
       transform: scale(1.035);
-      box-shadow: 0 12px 24px rgba(229, 9, 20, 0.4), 0 0 0 8px rgba(229, 9, 20, 0.0);
+      box-shadow: 0 12px 24px rgba(0, 0, 0, 0.24), 0 0 0 8px rgba(0, 0, 0, 0.0);
     }
     100% {
       transform: scale(1);
-      box-shadow: 0 4px 12px rgba(229, 9, 20, 0.2), 0 0 0 0 rgba(229, 9, 20, 0.2);
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15), 0 0 0 0 rgba(0, 0, 0, 0.12);
     }
   }
 
   /* HOW IT WORKS */
-  .how{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:20px;margin:16px 0}
+  .how{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+    padding:20px;margin:16px 0;
+  }
   .how h2{margin:0 0 16px;text-align:center;color:var(--ink);font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:0.3px}
   .steps{display:grid;gap:12px}
   .step{background:var(--grey-light);border:1px solid var(--line);border-radius:14px;padding:14px;display:flex;gap:12px;align-items:flex-start}
-  .ico{flex:0 0 auto;width:32px;height:32px;border-radius:10px;background:#111;border:1px solid var(--line);display:grid;place-items:center;font-size:14px}
+  .ico{flex:0 0 auto;width:32px;height:32px;border-radius:10px;background:#ffffff;border:1px solid var(--line);display:grid;place-items:center;font-size:14px}
+  body.theme-teststar .ico { background: #130a30; }
+  body.theme-netflix .ico { background: #111111; }
   .step h3{margin:0 0 4px;font-size:14px;color:var(--ink);font-weight:700}
   .step p{margin:0;font-size:13px;color:var(--grey-dark)}
 
-  /* DYNAMIC TIERS INFO BADGE */
+  /* VALUE BADGE */
   .value-badge {
-    background: #181818;
-    color: #ffffff;
+    background: var(--badge-bg) !important;
+    color: var(--badge-text) !important;
     border: 1px solid var(--line);
     text-align: center;
     border-radius: 12px;
@@ -146,14 +236,71 @@
     letter-spacing: 0.2px;
   }
 
-  /* REAL CUSTOMERS */
-  .proof{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:20px;margin:16px 0}
+  /* PROOF SECTION */
+  .proof{
+    background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);
+    padding:20px;margin:16px 0;
+  }
   .proof h2{margin:0 0 16px;text-align:center;color:var(--ink);font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:0.3px}
 
-  .slider{width:100%;max-width:100%;margin:0 auto;border-radius:14px;border:1px solid var(--line);background:var(--grey-light);overflow:hidden}
-  .slides{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;-webkit-overflow-scrolling:touch;padding:12px;scrollbar-width:none}
-  .slides::-webkit-scrollbar{display:none}
-  .slides img{flex:0 0 auto;scroll-snap-align:center;width:240px;height:426px;border-radius:10px;object-fit:cover;background:#222;border:1px solid var(--line)}
+  /* INFINITE TICKER ENGINE (CONTINUOUS LOOP) */
+  .vouch-ticker-viewport {
+    height: 340px;
+    overflow: hidden;
+    position: relative;
+    border-radius: 14px;
+    mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+    -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+  }
+  
+  .vouch-ticker-track {
+    display: flex;
+    flex-direction: column;
+    will-change: transform;
+    animation: scrollContinuous 55s linear infinite;
+  }
+  .vouch-ticker-track:hover { animation-play-state: paused; }
+
+  @keyframes scrollContinuous {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(-50%); }
+  }
+
+  .vouch-group {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    padding-bottom: 12px;
+  }
+
+  .vouch-card {
+    background: var(--grey-light);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px;
+    flex-shrink: 0;
+  }
+  .vouch-top { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+  
+  .vouch-user { font-weight: 700; font-size: 13px; color: var(--ink) !important; }
+  .vouch-payout {
+    background: var(--payout-bg);
+    color: var(--payout-color) !important;
+    border: 1px solid var(--payout-border);
+    font-weight: 800; font-size: 12px;
+    padding: 3px 10px; border-radius: 20px;
+  }
+  .vouch-text { font-size: 13px; color: var(--body) !important; margin: 0 0 8px; line-height: 1.4; }
+  
+  .vouch-meta {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+  }
+  .vouch-tag { font-weight: 600; color: var(--accent); display: inline-flex; align-items: center; gap: 4px; }
+  body.theme-teststar .vouch-tag { color: #7f51ff; }
+  .vouch-time { font-weight: 600; color: var(--grey-dark); opacity: 0.85; }
 
   /* FAQ */
   .faq{background:var(--card);border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:20px;margin:16px 0}
@@ -161,32 +308,38 @@
   details{background:var(--grey-light);border:1px solid var(--line);border-radius:14px;padding:14px;margin:10px 0}
   summary{cursor:pointer;font-weight:700;font-size:14px;color:var(--ink);position:relative;padding-right:20px;list-style:none}
   summary::-webkit-details-marker{display:none}
-  summary::after{content:'+';position:absolute;right:6px;top:0;font-weight:700;font-size:16px;color:var(--accent)}
+  summary::after{content:'+';position:absolute;right:6px;top:0;font-weight:700;font-size:16px}
   details[open] summary::after{content:'−'}
   
   .details-content {margin-top: 10px;border-top: 1px solid var(--line);padding-top: 10px}
-  .details-ans-main {display: block;font-size: 14px;color: #ffffff;font-weight: 700;line-height: 1.4;margin-bottom: 6px}
+  .details-ans-main {display: block;font-size: 14px;color: var(--ink);font-weight: 700;line-height: 1.4;margin-bottom: 6px}
   .details-ans-sub {display: block;font-size: 13px;color: var(--grey-dark);line-height: 1.5}
 
   .rating{text-align:center;font-weight:700;color:var(--ink);margin:24px 0 8px;font-size:13px;letter-spacing:0.2px}
   .foot{font-size:11px;color:var(--grey-dark);text-align:center;margin:16px 0;letter-spacing:0.5px}
 
-  /* Live toast - Oval Styling */
+  /* LIVE TOAST */
   .toast{
     position:fixed; bottom:16px; left:50%; z-index:40;
     transform:translate(-50%,6px);
-    background:var(--card); color:#fff; border:1px solid var(--line); border-radius:var(--border-oval);
-    padding:10px 22px; box-shadow:0 8px 24px rgba(0,0,0,0.8); font-size:12px; max-width:340px; width:90%;
+    background: var(--toast-bg) !important; 
+    color: var(--toast-text) !important; 
+    border: 1px solid var(--line); 
+    border-radius:var(--border-oval);
+    padding:10px 22px; 
+    box-shadow:0 8px 24px rgba(0,0,0,0.3); 
+    font-size:12px; max-width:360px; width:90%;
     opacity:0; transition:opacity .28s ease, transform .28s ease;
     text-align:center; font-weight: 600; letter-spacing: 0.2px;
   }
   .toast.show{opacity:1; transform:translate(-50%,0)}
 
-  /* MODAL STYLES */
+  /* MODAL */
   .modal-overlay {
     position: fixed;
     top: 0; left: 0; right: 0; bottom: 0;
-    background: rgba(0, 0, 0, 0.85);
+    background: rgba(0, 0, 0, 0.75);
+    backdrop-filter: blur(4px);
     z-index: 1000;
     display: flex;
     align-items: center;
@@ -196,83 +349,98 @@
     pointer-events: none;
     transition: opacity 0.3s ease;
   }
-  .modal-overlay.show {
-    opacity: 1;
-    pointer-events: auto;
-  }
+  .modal-overlay.show { opacity: 1; pointer-events: auto; }
   .modal {
-    background: #121212;
-    border: 1px solid #E50914;
+    background: #ffffff;
+    border: 1px solid var(--line);
     border-radius: 20px;
-    padding: 30px 24px;
+    padding: 28px 20px;
     max-width: 420px;
     width: 100%;
     text-align: center;
-    box-shadow: 0 10px 40px rgba(229, 9, 20, 0.25);
+    box-shadow: 0 16px 40px rgba(0,0,0,0.3);
     transform: scale(0.9);
     transition: transform 0.3s ease;
   }
-  .modal-overlay.show .modal {
-    transform: scale(1);
+  body.theme-teststar .modal { background: #150d36; border-color: #2a1b63; }
+  body.theme-netflix .modal { background: #121212; border-color: #222222; }
+  
+  .modal-overlay.show .modal { transform: scale(1); }
+  .modal-badge {
+    display: inline-block;
+    background: #00e676;
+    color: #000000;
+    font-size: 11px;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 20px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
   }
   .modal-title {
-    color: #E50914;
+    color: #000000;
     font-size: 20px;
     font-weight: 800;
     text-transform: uppercase;
-    margin: 0 0 14px;
-    letter-spacing: 0.5px;
+    margin: 0 0 10px;
+    letter-spacing: 0.3px;
   }
+  body.theme-teststar .modal-title { color: #ffffff; }
+  body.theme-netflix .modal-title { color: #ffffff; }
+
   .modal-text {
     font-size: 14px;
-    color: #e5e5e5;
-    line-height: 1.6;
-    margin-bottom: 24px;
+    color: #333333;
+    line-height: 1.5;
+    margin-bottom: 20px;
+    font-weight: 500;
   }
+  body.theme-teststar .modal-text { color: #e4e0ff; }
+  body.theme-netflix .modal-text { color: #e5e5e5; }
+
   .modal-btn {
     display: inline-block;
     width: 100%;
-    padding: 14px;
-    background: #E50914;
+    padding: 15px;
+    background: #000000;
     color: #ffffff;
     border: none;
     border-radius: var(--border-oval);
     font-size: 14px;
-    font-weight: 700;
+    font-weight: 800;
     text-transform: uppercase;
     letter-spacing: 1px;
     cursor: pointer;
-    transition: background-color 0.2s ease;
+    box-shadow: 0 4px 14px rgba(0,0,0,0.2);
   }
-  .modal-btn:hover {
-    background-color: #b80710;
-  }
+  body.theme-teststar .modal-btn { background: linear-gradient(90deg, #7f51ff 0%, #9b72ff 100%); color: #fff; }
+  body.theme-netflix .modal-btn { background: #E50914; color: #fff; }
 
   @media (max-width:480px){
     h1{font-size:18px}
     .title{font-size:15px}
-    .slides img{width:200px;height:355px}
   }
 </style>
 </head>
 <body>
 
-  <!-- DYNAMIC GEO REDIRECT MODAL -->
+  <!-- HIGH CONVERTING GEO MODAL -->
   <div class="modal-overlay" id="geoModal">
     <div class="modal">
-      <div class="modal-title">Notice ⚠️</div>
-      <div class="modal-text">
-        Since you aren't from the USA, UK, CA, or AU, you aren't eligible for the Shein offer.<br><br>
-        But instead, we have something even better! You can apply for our open <strong>Netflix Movie Reviewer</strong> position.
+      <div class="modal-badge">Access Granted</div>
+      <div class="modal-title" id="modalTitle">VIP Access Unlocked</div>
+      <div class="modal-text" id="modalText">
+        You've unlocked our top-rated, high-payout gaming rewards partner! Play quick mobile games and transfer real cash instantly to your account.
       </div>
-      <button class="modal-btn" onclick="closeGeoModal()">OK</button>
+      <button class="modal-btn" onclick="closeGeoModal()">Claim My Spot</button>
     </div>
   </div>
 
   <div class="wrap">
     <!-- HERO -->
     <header>
-      <h1 id="promoHeader">Claim Your Shein Gift Card Below 👇🏻</h1>
+      <h1 id="promoHeader">Claim Your $750 Shein Gift Card Below 👇🏻</h1>
       <div class="timer"><span class="tag">Offer ends in</span> <span id="timer">24:00:00</span></div>
     </header>
 
@@ -280,8 +448,8 @@
     <section class="offer" id="sheinOffer" aria-label="Main offer presentation">
       <div class="logo-container" id="promoLogo">SHEIN</div>
       <div>
-        <p class="title" id="promoTitle">Shein Gift Card</p>
-        <p class="blurb" id="promoBlurb">Enter your email, Complete quick deals & Earn giftcard! 🎁</p>
+        <p class="title" id="promoTitle">Shein $750 Gift Card</p>
+        <p class="blurb" id="promoBlurb">Enter your email, Complete quick deals & Earn giftcard!</p>
       </div>
       <a href="#" class="cta" id="promoCTA" aria-label="Start Now" onclick="routeOffer();return false;">Start Now</a>
     </section>
@@ -289,7 +457,7 @@
     <!-- HOW IT WORKS -->
     <section class="how" aria-label="How it works">
       <h2 id="howItWorksHeader">How it works</h2>
-      <div class="steps">
+      <div class="steps" id="stepsContainer">
         <div class="step">
           <div class="ico" id="step1Icon">✉️</div>
           <div>
@@ -314,18 +482,18 @@
       </div>
       
       <div class="value-badge" id="promoValueMessage">
-        💡 Pro-Tip: The more quick deals you complete, the higher the total value of your final rewards!
+        💡 Tier Unlock: Complete 2 deals ($80), 5 deals ($250), or unlock up to 25 deals to claim the $1,000 Grand Reward!
       </div>
     </section>
 
-    <!-- REAL CUSTOMERS (Identified by ID for dynamic layout removals) -->
-    <section class="proof" id="proofSection" aria-label="Real customers">
-      <h2 id="promoSocialHeader">Real customers vouch</h2>
-      <div class="slider">
-        <div class="slides">
-          <img src="images/review1.jpg" alt="Proof presentation 1" loading="lazy" />
-          <img src="images/review2.jpg" alt="Proof presentation 2" loading="lazy" />
-          <img src="images/review3.jpg" alt="Proof presentation 3" loading="lazy" />
+    <!-- PROOF SECTION (HUMAN VOUCHES + CONTINUOUS LOOP) -->
+    <section class="proof" id="proofSection" aria-label="Real activity">
+      <h2 id="promoSocialHeader">Live Verified Rewards</h2>
+      <div id="proofInner">
+        <div class="vouch-ticker-viewport">
+          <div class="vouch-ticker-track" id="vouchTrack">
+            <!-- Dynamically populated via JS -->
+          </div>
         </div>
       </div>
     </section>
@@ -333,89 +501,175 @@
     <!-- FAQ -->
     <section class="faq" aria-label="FAQ">
       <h2 id="faqMainHeader">Frequently Asked Questions</h2>
+      <div id="faqContainer">
+        <details>
+          <summary id="faqQ1">Do I need a credit card?</summary>
+          <div class="details-content">
+            <span class="details-ans-main" id="faqA1Main">No credit card details are required to get started.</span>
+            <span class="details-ans-sub" id="faqA1Sub">If a partner brand landing page displays a paid trial, simply skip past it and pick a free deal choice instead. Completing all processes in one continuous sitting avoids progress tracking timeouts.</span>
+          </div>
+        </details>
 
-      <details>
-        <summary id="faqQ1">Do I need a credit card?</summary>
-        <div class="details-content">
-          <span class="details-ans-main" id="faqA1Main">No credit card details are required to get started.</span>
-          <span class="details-ans-sub" id="faqA1Sub">If a partner brand landing page displays a paid trial, simply skip past it and pick a free deal choice instead. Completing all processes in one continuous sitting avoids progress tracking timeouts.</span>
-        </div>
-      </details>
+        <details>
+          <summary id="faqQ2">When will I receive my reward?</summary>
+          <div class="details-content">
+            <span class="details-ans-main" id="faqA2Main">Most users complete verification in 20–30 minutes to claim rewards the same day.</span>
+            <span class="details-ans-sub" id="faqA2Sub">If rewards are completed during off-peak hours or extra system verification checks trigger, standard secure delivery processes can require up to 24 hours.</span>
+          </div>
+        </details>
 
-      <details>
-        <summary id="faqQ2">When will I receive my reward?</summary>
-        <div class="details-content">
-          <span class="details-ans-main" id="faqA2Main">Most users complete verification in 20–30 minutes to claim rewards the same day.</span>
-          <span class="details-ans-sub" id="faqA2Sub">If rewards are completed during off-peak hours or extra system verification checks trigger, standard secure delivery processes can require up to 24 hours.</span>
-        </div>
-      </details>
+        <details>
+          <summary id="faqQ3">How many deals are required?</summary>
+          <div class="details-content">
+            <span class="details-ans-main" id="faqA3Main">You choose your reward tier based on completed deals!</span>
+            <span class="details-ans-sub" id="faqA3Sub">Start with 2 deals for an instant $80 credit, 5 deals for $250, or push up to 25 deals to unlock the $1,000 Shein Shopping Pass!</span>
+          </div>
+        </details>
 
-      <details>
-        <summary id="faqQ3">How many deals are required?</summary>
-        <div class="details-content">
-          <span class="details-ans-main" id="faqA3Main">Usually 2–4 quick completed promotional offers are needed.</span>
-          <span class="details-ans-sub" id="faqA3Sub">The concrete number dynamically tracks on the live partner balance page as you interact with tasks.</span>
-        </div>
-      </details>
-
-      <details>
-        <summary id="faqQ4">Trouble tracking my progress?</summary>
-        <div class="details-content">
-          <span class="details-ans-main" id="faqA4Main">Ensure you register with the identical email address across each individual offer page.</span>
-          <span class="details-ans-sub" id="faqA4Sub">Deactivate all ad-blockers, avoid navigating inside private/incognito tabs, disable active VPN tunnels, and do not close your original dashboard tabs until all confirmations load.</span>
-        </div>
-      </details>
+        <details>
+          <summary id="faqQ4">Trouble tracking my progress?</summary>
+          <div class="details-content">
+            <span class="details-ans-main" id="faqA4Main">Ensure you register with the identical email address across each individual offer page.</span>
+            <span class="details-ans-sub" id="faqA4Sub">Deactivate all ad-blockers, avoid navigating inside private/incognito tabs, disable active VPN tunnels, and do not close your original dashboard tabs until all confirmations load.</span>
+          </div>
+        </details>
+      </div>
     </section>
 
-    <div class="rating" id="ratingText">⭐️ 4.8/5 • 12,847 people claimed rewards this week</div>
+    <div class="rating" id="ratingText">⭐️ 4.9/5 • 18,410 people claimed rewards this week</div>
     <p class="foot">©2026 shnoffers.com</p>
   </div>
 
   <!-- Centered live toast -->
-  <div class="toast" id="liveFeed" role="status" aria-live="polite">Mia earned a $250 card after 3 deals!</div>
+  <div class="toast" id="liveFeed" role="status" aria-live="polite">Mia C. completed 2 deals & got $80 Shein Card!</div>
 
 <script>
-  /* --- WHITE LIST LINKS (USA, CA, AU, UK Only) --- */
-  const LINK_US_CA_AU = "https://trksy.org/aff_c?offer_id=1836&aff_id=22290";
-  const LINK_UK       = "https://trksy.org/aff_c?offer_id=1836&aff_id=22290";
-
-  /* --- GLOBAL FALLBACK LINK (Nepal + All Other Countries get the Netflix Job Offer) --- */
+  /* --- OFFER TARGET LINKS --- */
+  const LINK_SHEIN = "https://giftclick.org/aff_c?offer_id=1836&aff_id=22290"; 
+  const LINK_TESTSTAR_CPI = "https://taprkr.com/r/eyJ0IjoidGVzdHN0YXIiLCJ0aWQiOiIwY2NmODNkMDllMzYwNjUxMTJmNiIsInRzIjoxNzg1MjUwNzM5NTYzfQ";
   const LINK_NETFLIX_JOB = "https://giftclick.org/aff_c?offer_id=4721&aff_id=22290";
 
-  let targetAffiliateLink = LINK_NETFLIX_JOB;
-  let isNetflixLayout = false;
-  let activeCurrencySymbol = "$";
+  /* --- COUNTRY GROUPS --- */
+  const SHEIN_COUNTRIES = ["US", "CA", "AU", "GB", "UK", "NP"];
+  const TESTSTAR_COUNTRIES = ["FR", "NZ", "IE", "BE", "NL", "SE", "DK", "FI", "LU", "IS", "NO"];
+
+  let targetAffiliateLink = LINK_SHEIN;
+  let activePageType = "SHEIN";
+
+  /* REALISTIC, HUMAN-SOUNDING SHEIN VOUCHES (NATURAL CASUAL TYPING) */
+  const sheinVouches = [
+    { name: "Mia C.", payout: "$80 Claimed", text: "did 2 quick free app trials on my phone, got the code in my spam folder a few mins later.", tag: "2 Deals Completed", time: "4 seconds ago" },
+    { name: "Jessica R.", payout: "$80 Claimed", text: "just finished 2 short surveys. worked surprisingly fine", tag: "2 Deals Completed", time: "18 seconds ago" },
+    { name: "Brandon T.", payout: "$150 Claimed", text: "knocked out 3 offers while watching youtube. code showed up pretty quick.", tag: "3 Deals Completed", time: "38 seconds ago" },
+    { name: "Chloe M.", payout: "$80 Claimed", text: "2 deals done on my lunch break. legit saved my cart tonight lol", tag: "2 Deals Completed", time: "52 seconds ago" },
+    { name: "Samantha P.", payout: "$250 Claimed", text: "did 5 deals in total. took like 20 mins, got my wardrobe stuff sorted.", tag: "5 Deals Completed", time: "2 minutes ago" },
+    { name: "David K.", payout: "$100 Claimed", text: "thought this was fake at first ngl, but 2 app installs actually gave me the $80 plus bonus", tag: "2 Deals Completed", time: "4 minutes ago" },
+    { name: "Ashley T.", payout: "$350 Claimed", text: "did 7 offers straight. code redeemed fine on the app", tag: "7 Deals Completed", time: "7 minutes ago" },
+    { name: "Lucas H.", payout: "$80 Claimed", text: "took under 10 mins for 2 app tests.", tag: "2 Deals Completed", time: "11 minutes ago" },
+    { name: "Hannah M.", payout: "$500 Claimed", text: "pushed through 10 deals. bit tedious but getting $500 sent to email was worth it", tag: "10 Deals Completed", time: "15 minutes ago" },
+    { name: "Taylor B.", payout: "$250 Claimed", text: "5 simple game tasks done. tracking worked smoothly once i turned off adblocker", tag: "5 Deals Completed", time: "19 minutes ago" },
+    { name: "Jordan W.", payout: "$80 Claimed", text: "2 quick offers. used it for accessories straight away", tag: "2 Deals Completed", time: "24 minutes ago" },
+    { name: "Emily W.", payout: "$750 Claimed", text: "finished 18 deals over two days. huge haul coming in soon", tag: "18 Deals Completed", time: "32 minutes ago" },
+    { name: "Megan S.", payout: "$150 Claimed", text: "3 quick trial signups. balance updated in like 15 mins", tag: "3 Deals Completed", time: "41 minutes ago" },
+    { name: "Tyler R.", payout: "$80 Claimed", text: "super easy 2 deals. got some shoes with it", tag: "2 Deals Completed", time: "48 minutes ago" },
+    { name: "Olivia G.", payout: "$1,000 Claimed", text: "finished all 25 deals over the weekend. took some patience but the 1k tier actually unlocked!!", tag: "25 Deals Completed (Max Tier)", time: "56 minutes ago" },
+    { name: "Alyssa K.", payout: "$250 Claimed", text: "hit the 5 deal mark. make sure to turn adblock off or it wont track", tag: "5 Deals Completed", time: "1 hour ago" },
+    { name: "Daniel C.", payout: "$80 Claimed", text: "just 2 mobile app installs. quick process", tag: "2 Deals Completed", time: "1 hour ago" },
+    { name: "Rachel N.", payout: "$500 Claimed", text: "12 deals done during afternoon break. code verified on checkout", tag: "12 Deals Completed", time: "2 hours ago" },
+    { name: "Kevin L.", payout: "$150 Claimed", text: "3 app tasks done. clean payout", tag: "3 Deals Completed", time: "3 hours ago" },
+    { name: "Grace B.", payout: "$80 Claimed", text: "took 2 short surveys. simple enough", tag: "2 Deals Completed", time: "4 hours ago" },
+    { name: "Marcus D.", payout: "$750 Claimed", text: "finished 15 deals total. nice balance added to account", tag: "15 Deals Completed", time: "5 hours ago" },
+    { name: "Sophia L.", payout: "$250 Claimed", text: "5 game trials completed. code arrived in inbox fast", tag: "5 Deals Completed", time: "7 hours ago" },
+    { name: "Victoria E.", payout: "$80 Claimed", text: "2 tasks on my ipad. all good", tag: "2 Deals Completed", time: "9 hours ago" },
+    { name: "Andrew V.", payout: "$1,000 Claimed", text: "took a few hours to complete all 25 deals but 1k code worked at checkout.", tag: "25 Deals Completed (Max Tier)", time: "12 hours ago" },
+    { name: "Zoe H.", payout: "$350 Claimed", text: "8 tasks completed. fine experience overall", tag: "8 Deals Completed", time: "14 hours ago" }
+  ];
+
+  /* REALISTIC TESTSTAR CPI VOUCHES */
+  const teststarVouches = [
+    { name: "Marcus T.", payout: "+$80.00 Paid", text: "finished 2 app installs. payout hit paypal in 5 mins", tag: "2 App Tasks", time: "8 seconds ago" },
+    { name: "Elena R.", payout: "+$150.00 Paid", text: "played the rpg game to lvl 15 (3 deals total). easy cashout", tag: "3 Game Quests", time: "32 seconds ago" },
+    { name: "David L.", payout: "+$250.00 Paid", text: "hit 5 tasks over lunch. direct deposit confirmed", tag: "5 Deals Completed", time: "2 minutes ago" },
+    { name: "Jordan K.", payout: "+$80.00 Paid", text: "downloaded 2 strategy games, leveled up pretty quick", tag: "2 Deals Completed", time: "5 minutes ago" },
+    { name: "Chloe W.", payout: "+$500.00 Paid", text: "12 game quests done over the weekend. good payout", tag: "12 Game Quests", time: "14 minutes ago" },
+    { name: "Samantha P.", payout: "+$80.00 Paid", text: "2 app tests done. balance updated auto", tag: "2 App Tasks", time: "22 minutes ago" },
+    { name: "Lucas M.", payout: "+$350.00 Paid", text: "finished tutorial quests in casual games. decent site", tag: "8 Deals Completed", time: "38 minutes ago" },
+    { name: "Alex H.", payout: "+$1,000.00 Paid", text: "took a bit of grinding but hit 25 offer completions for the $1,000 tier. cashout went through!", tag: "25 Deals Completed (Max Tier)", time: "52 minutes ago" },
+    { name: "Nina B.", payout: "+$80.00 Paid", text: "easy $80 cashout after testing 2 apps", tag: "2 Deals Completed", time: "1 hour ago" },
+    { name: "Ryan G.", payout: "+$250.00 Paid", text: "hit 5 game milestones. transfer went fine", tag: "5 Deals Completed", time: "2 hours ago" },
+    { name: "Jessica F.", payout: "+$150.00 Paid", text: "3 game downloads finished while watching TV", tag: "3 Deals Completed", time: "3 hours ago" },
+    { name: "Brandon S.", payout: "+$750.00 Paid", text: "16 mobile offers finished. payout went straight to account", tag: "16 Deals Completed", time: "5 hours ago" },
+    { name: "Chris P.", payout: "+$80.00 Paid", text: "completed 2 quick tasks. verified", tag: "2 Deals Completed", time: "8 hours ago" },
+    { name: "Natalie K.", payout: "+$1,000.00 Paid", text: "completed all 25 game challenges over 3 days. max payout tier reached", tag: "25 Deals Completed (Max Tier)", time: "11 hours ago" }
+  ];
 
   async function initGeoEngine() {
     try {
       const response = await fetch('https://ipapi.co/json/');
-      if (!response.ok) throw new Error("API call failed");
+      if (!response.ok) throw new Error("GeoIP API error");
       
       const data = await response.json();
-      const countryCode = data && data.country_code ? data.country_code.toUpperCase() : "";
+      const countryCode = data && data.country_code ? data.country_code.toUpperCase() : "US";
 
-      // 4-Country Whitelist check (USA, CA, AU, UK)
-      if (["US", "CA", "AU"].includes(countryCode)) {
-        targetAffiliateLink = LINK_US_CA_AU;
-      } else if (countryCode === "GB" || countryCode === "UK") {
-        targetAffiliateLink = LINK_UK;
-        activeCurrencySymbol = "£";
+      if (SHEIN_COUNTRIES.includes(countryCode)) {
+        targetAffiliateLink = LINK_SHEIN;
+        activePageType = "SHEIN";
+        renderScrollingVouches(sheinVouches);
+      } else if (TESTSTAR_COUNTRIES.includes(countryCode)) {
+        targetAffiliateLink = LINK_TESTSTAR_CPI;
+        activePageType = "TESTSTAR";
+        applyTeststarLayoutEngine();
+        renderScrollingVouches(teststarVouches);
+        showGeoModal(
+          "High-Payout Offer Unlocked", 
+          "You've been selected for our exclusive gaming rewards partner! Play trending mobile games and cash out real money directly to your account today."
+        );
       } else {
-        // Nepal & All Other Worldwide Countries get Netflix Layout + Dialog Modal
         targetAffiliateLink = LINK_NETFLIX_JOB;
-        isNetflixLayout = true;
-        applyNetflixLayoutEngine(); 
-        showGeoModal();
+        activePageType = "NETFLIX";
+        applyNetflixLayoutEngine();
+        showGeoModal(
+          "Remote Job Opening Unlocked", 
+          "A VIP position for Netflix Movie Reviewers has opened up in your area! Complete simple title evaluations and earn hourly remote wages."
+        );
       }
     } catch (error) {
-      console.warn("API Error. Defaulting to Netflix Portal fallback.", error);
-      isNetflixLayout = true;
-      applyNetflixLayoutEngine();
-      showGeoModal();
+      console.warn("API Error. Defaulting to US Shein Page.", error);
+      renderScrollingVouches(sheinVouches);
+    } finally {
+      document.body.classList.add('loaded');
+      startToastFeed();
     }
   }
 
-  function showGeoModal() {
+  /* CONTINUOUS SCROLLING RENDER ENGINE */
+  function renderScrollingVouches(items) {
+    const track = document.getElementById("vouchTrack");
+    if(!track) return;
+    
+    const singleGroupHTML = items.map(item => `
+      <div class="vouch-card">
+        <div class="vouch-top">
+          <span class="vouch-user">${item.name}</span>
+          <span class="vouch-payout">${item.payout}</span>
+        </div>
+        <p class="vouch-text">"${item.text}"</p>
+        <div class="vouch-meta">
+          <span class="vouch-tag">${item.tag}</span>
+          <span class="vouch-time">${item.time}</span>
+        </div>
+      </div>
+    `).join('');
+
+    track.innerHTML = `
+      <div class="vouch-group">${singleGroupHTML}</div>
+      <div class="vouch-group" aria-hidden="true">${singleGroupHTML}</div>
+    `;
+  }
+
+  function showGeoModal(title, text) {
+    document.getElementById("modalTitle").textContent = title;
+    document.getElementById("modalText").textContent = text;
     document.getElementById("geoModal").classList.add("show");
   }
 
@@ -423,27 +677,60 @@
     document.getElementById("geoModal").classList.remove("show");
   }
 
-  /* Dynamically shifts UI into a high-converting WFH Netflix Movie Reviewer job page */
+  /* DYNAMIC TESTSTAR CPI LAYOUT ENGINE */
+  function applyTeststarLayoutEngine() {
+    document.body.classList.add('theme-teststar');
+    document.title = "Teststar - Play Games, Test Apps & Earn Real Cash";
+
+    document.getElementById("promoHeader").textContent = "Play Mobile Games & Earn Real Cash Rewards 👇🏻";
+
+    const logo = document.getElementById("promoLogo");
+    logo.innerHTML = `
+      <svg viewBox="0 0 24 24">
+        <path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>
+      </svg>
+      <span>TESTSTAR</span>
+    `;
+
+    document.getElementById("promoTitle").textContent = "Teststar Game & App Rewards";
+    document.getElementById("promoBlurb").textContent = "Play featured games, reach levels & cash out real money straight to PayPal!";
+    document.getElementById("promoCTA").textContent = "Start Earning Cash Now";
+
+    document.getElementById("howItWorksHeader").textContent = "How To Start Earning";
+    document.getElementById("stepsContainer").innerHTML = `
+      <div class="step"><div class="ico">📱</div><div><h3>1. Pick a Featured Game</h3><p>Select from hundreds of popular mobile games or trending apps inside your dashboard.</p></div></div>
+      <div class="step"><div class="ico">🎮</div><div><h3>2. Play & Reach Milestones</h3><p>Have fun reaching simple target levels or testing cool new app features.</p></div></div>
+      <div class="step"><div class="ico">💸</div><div><h3>3. Instant Cash Out</h3><p>Convert your time directly to cash. Complete 2 deals ($80) up to 25 deals ($1,000)!</p></div></div>
+    `;
+
+    document.getElementById("promoValueMessage").textContent = "💡 Tier Unlock: Complete 2 deals ($80), 5 deals ($250), or unlock up to 25 deals for $1,000 Cash!";
+    document.getElementById("promoSocialHeader").textContent = "Live Verified Cash Payouts";
+
+    document.getElementById("faqContainer").innerHTML = `
+      <details><summary>How do I make money playing games on Teststar?</summary><div class="details-content"><span class="details-ans-main">You get paid by downloading featured games through Teststar and hitting milestone target levels.</span><span class="details-ans-sub">Game studios pay Teststar to attract active players, and Teststar shares that reward revenue directly with you!</span></div></details>
+      <details><summary>When and how do I receive my earnings?</summary><div class="details-content"><span class="details-ans-main">Payouts process fast directly to PayPal or standard digital cards.</span><span class="details-ans-sub">Once your game targets pass automatic verification, you can trigger instant cashouts safely.</span></div></details>
+      <details><summary>Is Teststar 100% free to join?</summary><div class="details-content"><span class="details-ans-main">Yes! Teststar is completely free with zero credit card required.</span><span class="details-ans-sub">Always select free games and app tasks inside your portal to maximize pure profit.</span></div></details>
+    `;
+
+    document.getElementById("ratingText").textContent = "⭐️ 4.9/5 • 19,290 players earned cash rewards this week";
+  }
+
+  /* DYNAMIC NETFLIX LAYOUT ENGINE */
   function applyNetflixLayoutEngine() {
+    document.body.classList.add('theme-netflix');
+    document.title = "Netflix Movie Reviewer Openings";
     document.getElementById("promoHeader").innerHTML = "Netflix Movie Reviewer Openings 👇🏻";
     
     const logo = document.getElementById("promoLogo");
     logo.textContent = "NETFLIX";
-    logo.style.background = "#E50914"; // Netflix Red
-    logo.style.color = "#FFFFFF";
-    logo.style.fontSize = "10px";
     
     document.getElementById("promoTitle").textContent = "Netflix Movie Reviewer";
-    document.getElementById("promoBlurb").innerHTML = "Enter your email, Review trending titles & Earn streaming wages! 🎬";
+    document.getElementById("promoBlurb").innerHTML = "Enter your email, Review trending titles & Earn streaming wages!";
     document.getElementById("promoCTA").textContent = "Apply For Position";
     
-    // Completely remove the Review/Proof section from the layout
     const proofSection = document.getElementById("proofSection");
-    if (proofSection) {
-      proofSection.style.display = "none";
-    }
+    if (proofSection) proofSection.style.display = "none";
     
-    // Rewrite "How it works"
     document.getElementById("howItWorksHeader").textContent = "Onboarding Process";
     document.getElementById("step1Icon").textContent = "📋";
     document.getElementById("step1Title").textContent = "Submit Contact Details";
@@ -459,7 +746,6 @@
     
     document.getElementById("promoValueMessage").textContent = "💡 Pro-Tip: Finalizing initial task benchmarks right away yields faster clearance cycles within your remote user panel!";
     
-    // Rewrite FAQs for Netflix layout
     document.getElementById("faqMainHeader").textContent = "Application FAQs";
     document.getElementById("faqQ1").textContent = "Is prior experience required?";
     document.getElementById("faqA1Main").textContent = "No formal evaluation backgrounds are needed to apply.";
@@ -480,15 +766,11 @@
     document.getElementById("ratingText").textContent = "⭐️ 4.9/5 • 9,248 reviewers accepted this week";
   }
 
-  function openNew(url){ 
-    window.open(url, "_blank", "noopener,noreferrer"); 
-  }
-
   function routeOffer(){
-    openNew(targetAffiliateLink);
+    window.open(targetAffiliateLink, "_blank", "noopener,noreferrer");
   }
 
-  /* Countdown (24h loop) */
+  /* Countdown Timer */
   (function(){
     const el = document.getElementById('timer');
     let t = 24*60*60;
@@ -496,7 +778,7 @@
       const h = String(Math.floor(t/3600)).padStart(2,'0');
       const m = String(Math.floor((t%3600)/60)).padStart(2,'0');
       const s = String(t%60).padStart(2,'0');
-      el.textContent = `${h}:${m}:${s}`;
+      if(el) el.textContent = `${h}:${m}:${s}`;
       t = (t-1+86400)%86400;
     },1000);
   })();
@@ -507,49 +789,50 @@
     requestAnimationFrame(()=> document.getElementById('sheinOffer').classList.add('reveal'));
   });
 
-  /* Dynamic Social Proof Feed Loop */
-  (function(){
+  /* Dynamic Toast Notifications Sync */
+  function startToastFeed(){
     const el = document.getElementById('liveFeed');
     let i = 0;
     
     function show(t){
+      if(!el) return;
       el.textContent = t;
       el.classList.add('show');
-      setTimeout(()=> el.classList.remove('show'), 4500);
+      setTimeout(()=> el.classList.remove('show'), 4000);
     }
-    
-    setTimeout(() => {
-      const msgs = isNetflixLayout ? [
+
+    let msgs = [];
+    if (activePageType === "TESTSTAR") {
+      msgs = [
+        "Marcus T. completed 2 deals & got $80 cash!",
+        "Samantha P. completed 5 deals & unlocked $250!",
+        "Alex H. completed 25 deals & claimed $1,000!",
+        "Chloe W. completed 12 deals & got $500!"
+      ];
+    } else if (activePageType === "NETFLIX") {
+      msgs = [
         "Mia earned $35/hr reviewing today!",
         "Ava secured a remote spot just now!",
         "Sophia cleared $120 task payout!",
         "Olivia onboarded in 10 minutes!"
-      ] : [
-        `Mia earned a ${activeCurrencySymbol}250 card after 3 deals!`,
-        `Ava earned a ${activeCurrencySymbol}750 card after 5 deals!`,
-        `Sophia claimed a ${activeCurrencySymbol}100 card in 25 mins!`,
-        `Olivia earned a ${activeCurrencySymbol}100 card just now!`
       ];
-      
-      show(msgs[i]); 
-      i = (i + 1) % msgs.length;
-      
+    } else {
+      msgs = [
+        "Mia C. completed 2 deals & got $80 Shein Card!",
+        "Samantha P. completed 5 deals & unlocked $250!",
+        "Olivia G. completed 25 deals & claimed $1,000!",
+        "Hannah M. completed 10 deals & claimed $500 code!"
+      ];
+    }
+    
+    setTimeout(() => {
+      show(msgs[i % msgs.length]); 
+      i++;
       setInterval(() => {
-        const structuralMsgs = isNetflixLayout ? [
-          "Mia earned $35/hr reviewing today!",
-          "Ava secured a remote spot just now!",
-          "Sophia cleared $120 task payout!",
-          "Olivia onboarded in 10 minutes!"
-        ] : [
-          `Mia earned a ${activeCurrencySymbol}250 card after 3 deals!`,
-          `Ava earned a ${activeCurrencySymbol}750 card after 5 deals!`,
-          `Sophia claimed a ${activeCurrencySymbol}100 card in 25 mins!`,
-          `Olivia earned a ${activeCurrencySymbol}100 card just now!`
-        ];
-        show(structuralMsgs[i++ % structuralMsgs.length]);
-      }, 8500);
+        show(msgs[i++ % msgs.length]);
+      }, 7000);
     }, 1500);
-  })();
+  }
 </script>
 </body>
 </html>
