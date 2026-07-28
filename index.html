@@ -440,7 +440,7 @@
   <div class="wrap">
     <!-- HERO -->
     <header>
-      <h1 id="promoHeader">Claim Your $750 Shein Gift Card Below 👇🏻</h1>
+      <h1 id="promoHeader">Claim Your Shein Gift Card Below 👇🏻</h1>
       <div class="timer"><span class="tag">Offer ends in</span> <span id="timer">24:00:00</span></div>
     </header>
 
@@ -448,7 +448,7 @@
     <section class="offer" id="sheinOffer" aria-label="Main offer presentation">
       <div class="logo-container" id="promoLogo">SHEIN</div>
       <div>
-        <p class="title" id="promoTitle">Shein $750 Gift Card</p>
+        <p class="title" id="promoTitle">Shein Gift Card</p>
         <p class="blurb" id="promoBlurb">Enter your email, Complete quick deals & Earn giftcard!</p>
       </div>
       <a href="#" class="cta" id="promoCTA" aria-label="Start Now" onclick="routeOffer();return false;">Start Now</a>
@@ -469,7 +469,7 @@
           <div class="ico" id="step2Icon">📝</div>
           <div>
             <h3 id="step2Title">Complete quick deals</h3>
-            <p id="step2Desc">Finish simple partner offers (surveys, app installs, or casual games) to qualify.</p>
+            <p id="step2Desc">Finish simple partner offers (surveys, app installs, or casual tasks) to qualify.</p>
           </div>
         </div>
         <div class="step">
@@ -486,7 +486,7 @@
       </div>
     </section>
 
-    <!-- PROOF SECTION (HUMAN VOUCHES + CONTINUOUS LOOP) -->
+    <!-- PROOF SECTION (HUMAN SHEIN DEALS VOUCHES + CONTINUOUS LOOP) -->
     <section class="proof" id="proofSection" aria-label="Real activity">
       <h2 id="promoSocialHeader">Live Verified Rewards</h2>
       <div id="proofInner">
@@ -556,33 +556,33 @@
   let targetAffiliateLink = LINK_SHEIN;
   let activePageType = "SHEIN";
 
-  /* REALISTIC, HUMAN-SOUNDING SHEIN VOUCHES (NATURAL CASUAL TYPING) */
+  /* PURE SHEIN & CLOTHING DEALS VOUCHES */
   const sheinVouches = [
-    { name: "Mia C.", payout: "$80 Claimed", text: "did 2 quick free app trials on my phone, got the code in my spam folder a few mins later.", tag: "2 Deals Completed", time: "4 seconds ago" },
-    { name: "Jessica R.", payout: "$80 Claimed", text: "just finished 2 short surveys. worked surprisingly fine", tag: "2 Deals Completed", time: "18 seconds ago" },
-    { name: "Brandon T.", payout: "$150 Claimed", text: "knocked out 3 offers while watching youtube. code showed up pretty quick.", tag: "3 Deals Completed", time: "38 seconds ago" },
-    { name: "Chloe M.", payout: "$80 Claimed", text: "2 deals done on my lunch break. legit saved my cart tonight lol", tag: "2 Deals Completed", time: "52 seconds ago" },
-    { name: "Samantha P.", payout: "$250 Claimed", text: "did 5 deals in total. took like 20 mins, got my wardrobe stuff sorted.", tag: "5 Deals Completed", time: "2 minutes ago" },
-    { name: "David K.", payout: "$100 Claimed", text: "thought this was fake at first ngl, but 2 app installs actually gave me the $80 plus bonus", tag: "2 Deals Completed", time: "4 minutes ago" },
-    { name: "Ashley T.", payout: "$350 Claimed", text: "did 7 offers straight. code redeemed fine on the app", tag: "7 Deals Completed", time: "7 minutes ago" },
-    { name: "Lucas H.", payout: "$80 Claimed", text: "took under 10 mins for 2 app tests.", tag: "2 Deals Completed", time: "11 minutes ago" },
-    { name: "Hannah M.", payout: "$500 Claimed", text: "pushed through 10 deals. bit tedious but getting $500 sent to email was worth it", tag: "10 Deals Completed", time: "15 minutes ago" },
-    { name: "Taylor B.", payout: "$250 Claimed", text: "5 simple game tasks done. tracking worked smoothly once i turned off adblocker", tag: "5 Deals Completed", time: "19 minutes ago" },
-    { name: "Jordan W.", payout: "$80 Claimed", text: "2 quick offers. used it for accessories straight away", tag: "2 Deals Completed", time: "24 minutes ago" },
-    { name: "Emily W.", payout: "$750 Claimed", text: "finished 18 deals over two days. huge haul coming in soon", tag: "18 Deals Completed", time: "32 minutes ago" },
-    { name: "Megan S.", payout: "$150 Claimed", text: "3 quick trial signups. balance updated in like 15 mins", tag: "3 Deals Completed", time: "41 minutes ago" },
-    { name: "Tyler R.", payout: "$80 Claimed", text: "super easy 2 deals. got some shoes with it", tag: "2 Deals Completed", time: "48 minutes ago" },
-    { name: "Olivia G.", payout: "$1,000 Claimed", text: "finished all 25 deals over the weekend. took some patience but the 1k tier actually unlocked!!", tag: "25 Deals Completed (Max Tier)", time: "56 minutes ago" },
-    { name: "Alyssa K.", payout: "$250 Claimed", text: "hit the 5 deal mark. make sure to turn adblock off or it wont track", tag: "5 Deals Completed", time: "1 hour ago" },
-    { name: "Daniel C.", payout: "$80 Claimed", text: "just 2 mobile app installs. quick process", tag: "2 Deals Completed", time: "1 hour ago" },
-    { name: "Rachel N.", payout: "$500 Claimed", text: "12 deals done during afternoon break. code verified on checkout", tag: "12 Deals Completed", time: "2 hours ago" },
-    { name: "Kevin L.", payout: "$150 Claimed", text: "3 app tasks done. clean payout", tag: "3 Deals Completed", time: "3 hours ago" },
-    { name: "Grace B.", payout: "$80 Claimed", text: "took 2 short surveys. simple enough", tag: "2 Deals Completed", time: "4 hours ago" },
-    { name: "Marcus D.", payout: "$750 Claimed", text: "finished 15 deals total. nice balance added to account", tag: "15 Deals Completed", time: "5 hours ago" },
-    { name: "Sophia L.", payout: "$250 Claimed", text: "5 game trials completed. code arrived in inbox fast", tag: "5 Deals Completed", time: "7 hours ago" },
-    { name: "Victoria E.", payout: "$80 Claimed", text: "2 tasks on my ipad. all good", tag: "2 Deals Completed", time: "9 hours ago" },
-    { name: "Andrew V.", payout: "$1,000 Claimed", text: "took a few hours to complete all 25 deals but 1k code worked at checkout.", tag: "25 Deals Completed (Max Tier)", time: "12 hours ago" },
-    { name: "Zoe H.", payout: "$350 Claimed", text: "8 tasks completed. fine experience overall", tag: "8 Deals Completed", time: "14 hours ago" }
+    { name: "Mia C.", payout: "$80 Claimed", text: "completed 2 quick deals and got my $80 code straight to email, buying a new pair of clothes right now", tag: "2 Deals Completed", time: "4 seconds ago" },
+    { name: "Jessica R.", payout: "$80 Claimed", text: "just finished 2 short deals. paid for my summer tops cart instantly", tag: "2 Deals Completed", time: "18 seconds ago" },
+    { name: "Brandon T.", payout: "$150 Claimed", text: "knocked out 3 deals while watching youtube. used it to grab some new shoes and hoodies", tag: "3 Deals Completed", time: "38 seconds ago" },
+    { name: "Chloe M.", payout: "$80 Claimed", text: "2 deals done on my lunch break. code worked at shein checkout without issues", tag: "2 Deals Completed", time: "52 seconds ago" },
+    { name: "Samantha P.", payout: "$250 Claimed", text: "finished 5 deals total. cleared out my entire shein cart tonight lol", tag: "5 Deals Completed", time: "2 minutes ago" },
+    { name: "David K.", payout: "$100 Claimed", text: "thought this was fake ngl, but completed 2 deals and actually got $100 for a fresh outfit", tag: "2 Deals Completed", time: "4 minutes ago" },
+    { name: "Ashley T.", payout: "$350 Claimed", text: "did 7 deals straight. code redeemed fine on the app for my winter clothes haul", tag: "7 Deals Completed", time: "7 minutes ago" },
+    { name: "Lucas H.", payout: "$80 Claimed", text: "took under 10 mins for 2 deals. spent it on new pants and a jacket", tag: "2 Deals Completed", time: "11 minutes ago" },
+    { name: "Hannah M.", payout: "$500 Claimed", text: "pushed through 10 deals. bit tedious but getting $500 to spend on shein was totally worth it", tag: "10 Deals Completed", time: "15 minutes ago" },
+    { name: "Taylor B.", payout: "$250 Claimed", text: "5 simple deals done. tracking worked smoothly once i turned off adblocker", tag: "5 Deals Completed", time: "19 minutes ago" },
+    { name: "Jordan W.", payout: "$80 Claimed", text: "2 quick deals done. used the code for shein accessories straight away", tag: "2 Deals Completed", time: "24 minutes ago" },
+    { name: "Emily W.", payout: "$750 Claimed", text: "finished 18 deals over two days. huge clothing haul incoming!", tag: "18 Deals Completed", time: "32 minutes ago" },
+    { name: "Megan S.", payout: "$150 Claimed", text: "3 quick trial deals. balance updated in like 15 mins", tag: "3 Deals Completed", time: "41 minutes ago" },
+    { name: "Tyler R.", payout: "$80 Claimed", text: "super easy 2 deals. bought two pairs of shoes with it", tag: "2 Deals Completed", time: "48 minutes ago" },
+    { name: "Olivia G.", payout: "$1,000 Claimed", text: "finished all 25 deals over the weekend. took patience but the 1k shein code actually unlocked!", tag: "25 Deals Completed (Max Tier)", time: "56 minutes ago" },
+    { name: "Alyssa K.", payout: "$250 Claimed", text: "hit the 5 deal mark. turn adblock off so tracking records your deals correctly", tag: "5 Deals Completed", time: "1 hour ago" },
+    { name: "Daniel C.", payout: "$80 Claimed", text: "just 2 quick deals. got $80 off my shein order", tag: "2 Deals Completed", time: "1 hour ago" },
+    { name: "Rachel N.", payout: "$500 Claimed", text: "12 deals done during my afternoon break. code verified on shein checkout", tag: "12 Deals Completed", time: "2 hours ago" },
+    { name: "Kevin L.", payout: "$150 Claimed", text: "3 simple deals completed. restocked my workout clothes", tag: "3 Deals Completed", time: "3 hours ago" },
+    { name: "Grace B.", payout: "$80 Claimed", text: "took 2 short survey deals. simple enough for free shopping money", tag: "2 Deals Completed", time: "4 hours ago" },
+    { name: "Marcus D.", payout: "$750 Claimed", text: "finished 15 deals total. nice balance added to my account for new clothes", tag: "15 Deals Completed", time: "5 hours ago" },
+    { name: "Sophia L.", payout: "$250 Claimed", text: "5 deals completed. code arrived in inbox fast, buying some dresses now", tag: "5 Deals Completed", time: "7 hours ago" },
+    { name: "Victoria E.", payout: "$80 Claimed", text: "2 tasks on my ipad. all good, saved me $80 on my cart", tag: "2 Deals Completed", time: "9 hours ago" },
+    { name: "Andrew V.", payout: "$1,000 Claimed", text: "took a few hours to finish all 25 deals but 1k code worked at checkout.", tag: "25 Deals Completed (Max Tier)", time: "12 hours ago" },
+    { name: "Zoe H.", payout: "$350 Claimed", text: "8 deals completed. bought a bunch of new outfits for college", tag: "8 Deals Completed", time: "14 hours ago" }
   ];
 
   /* REALISTIC TESTSTAR CPI VOUCHES */
@@ -836,4 +836,3 @@
 </script>
 </body>
 </html>
-
