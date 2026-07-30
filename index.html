@@ -215,26 +215,45 @@
   .step h3{margin:0 0 4px;font-size:14px;color:var(--ink);font-weight:700}
   .step p{margin:0;font-size:13px;color:var(--grey-dark)}
 
-  /* VALUE BADGE */
+  /* VALUE BADGE / REWARD STRUCTURE */
   .value-badge {
-    background: var(--badge-bg) !important;
-    color: var(--badge-text) !important;
+    background: var(--grey-light);
     border: 1px solid var(--line);
-    text-align: center;
-    border-radius: 10px;
-    padding: 12px;
-    font-size: 13px;
-    font-weight: 600;
+    border-radius: 12px;
+    padding: 16px;
     margin-top: 14px;
-    letter-spacing: 0.2px;
   }
+  .value-badge-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .value-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .value-row {
+    display: flex;
+    justify-content: space-between;
+    font-size: 12px;
+    color: var(--body);
+    padding-bottom: 4px;
+    border-bottom: 1px dashed var(--line);
+  }
+  .value-row:last-child { border-bottom: none; padding-bottom: 0; }
+  .value-row strong { color: var(--payout-color); font-weight: 700; }
 
   /* PROOF SECTION */
   .proof{
     background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);
     padding:20px;margin:16px 0;
   }
-  .proof h2{margin:0 0 16px;text-align:center;color:var(--ink);font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:0.3px}
+  .proof h2{margin:0 0 6px;text-align:center;color:var(--ink);font-size:18px;font-weight:800;text-transform:uppercase;letter-spacing:0.3px}
+  .ticker-hint { text-align: center; font-size: 11px; color: var(--grey-dark); margin-bottom: 14px; }
 
   /* INFINITE TICKER ENGINE */
   .vouch-ticker-viewport {
@@ -244,6 +263,8 @@
     border-radius: 12px;
     mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
     -webkit-mask-image: linear-gradient(to bottom, transparent 0%, black 8%, black 92%, transparent 100%);
+    user-select: none;
+    cursor: pointer;
   }
   
   .vouch-ticker-track {
@@ -252,7 +273,9 @@
     will-change: transform;
     animation: scrollContinuous 55s linear infinite;
   }
-  .vouch-ticker-track:hover { animation-play-state: paused; }
+  .vouch-ticker-track.paused {
+    animation-play-state: paused !important;
+  }
 
   @keyframes scrollContinuous {
     0% { transform: translateY(0); }
@@ -313,7 +336,7 @@
   body.theme-teststar .modal-badge { background: rgba(127, 81, 255, 0.2); color: #9b72ff; border-color: rgba(127, 81, 255, 0.4); }
   .modal-title { color: #ffffff; font-size: 19px; font-weight: 800; text-transform: uppercase; margin: 0 0 12px; }
   body.theme-shein .modal-title { color: #000000; }
-  .modal-text { font-size: 14px; color: #cccccc; line-height: 1.5; margin-bottom: 22px; }
+  .modal-text { font-size: 14px; color: #cccccc; line-height: 1.5; margin-bottom: 22px; text-align: left; }
   body.theme-shein .modal-text { color: #333333; }
   body.theme-shein .modal-text strong { color: #000000; }
   .modal-btn {
@@ -330,7 +353,7 @@
       <div class="modal-badge" id="modalBadge">Region Update 📍</div>
       <div class="modal-title" id="modalTitle">Notice</div>
       <div class="modal-text" id="modalText">Loading offer details...</div>
-      <button class="modal-btn" onclick="closeGeoModal()">Continue & Unlock Deals</button>
+      <button class="modal-btn" onclick="closeGeoModal()">Continue & Claim Cash</button>
     </div>
   </div>
 
@@ -381,36 +404,68 @@
         </div>
       </div>
       
-      <div class="value-badge" id="promoValueMessage">
-        🔥 More Deals = Higher Cashouts: Complete 2 deals ($80), 5 deals ($250), or clear 25 deals to claim the $1,000 Tier!
+      <!-- RESTRUCTURED REWARD VALUE BOX -->
+      <div class="value-badge" id="promoValueBox">
+        <div class="value-badge-title">Reward Tier Progression</div>
+        <div class="value-grid">
+          <div class="value-row"><span>2 Completed Deals</span><strong id="tier1Val">$80 Payout</strong></div>
+          <div class="value-row"><span>5 Completed Deals</span><strong id="tier2Val">$250 Payout</strong></div>
+          <div class="value-row"><span>25 Completed Deals</span><strong id="tier3Val">$1,000 Grand Tier</strong></div>
+        </div>
       </div>
     </section>
 
     <!-- PROOF SECTION -->
     <section class="proof" id="proofSection">
       <h2 id="promoSocialHeader">Live Verified Member Payouts</h2>
+      <div class="ticker-hint">💡 Double-tap feed to pause / resume scrolling</div>
       <div id="proofInner">
-        <div class="vouch-ticker-viewport">
+        <div class="vouch-ticker-viewport" id="vouchViewport">
           <div class="vouch-ticker-track" id="vouchTrack"></div>
         </div>
       </div>
     </section>
 
-    <!-- FAQ -->
+    <!-- EXPANDED FAQ SECTION -->
     <section class="faq">
       <h2 id="faqMainHeader">Frequently Asked Questions</h2>
       <div id="faqContainer">
         <details>
-          <summary>How do deals work?</summary>
+          <summary>Do I need a credit card to participate?</summary>
           <div class="details-content">
-            <span class="details-ans-main">You choose free or low-effort tasks from our partner network.</span>
-            <span class="details-ans-sub">Tasks include downloading free games, taking quick surveys, or trying out new apps. Each finished task registers toward your payout tier.</span>
+            <span class="details-ans-main">No, a credit card is not required.</span>
+            <span class="details-ans-sub">Most partner deals consist of free mobile app downloads, quick surveys, or free service sign-ups. Any optional deal requiring payment is clearly labeled.</span>
           </div>
         </details>
-        <details id="faqDealsTier">
-          <summary>Why do more deals equal bigger rewards?</summary>
+
+        <details>
+          <summary>Are there any hidden fees or costs?</summary>
           <div class="details-content">
-            <span class="details-ans-main">Sponsors allocate higher reward budgets when users engage across multiple partner tasks.</span>
+            <span class="details-ans-main">100% Free to join and complete.</span>
+            <span class="details-ans-sub">You will never be asked to pay to cash out your earned rewards. Our brand partners sponsor these payouts for your participation.</span>
+          </div>
+        </details>
+
+        <details>
+          <summary>How do I receive my gift card or direct cash?</summary>
+          <div class="details-content">
+            <span class="details-ans-main">Rewards are delivered digitally.</span>
+            <span class="details-ans-sub">Gift card claim codes are sent directly to the email address registered during your sign-up, while cash payouts are transferred directly to your designated PayPal account.</span>
+          </div>
+        </details>
+
+        <details>
+          <summary>Why do I need to complete deals?</summary>
+          <div class="details-content">
+            <span class="details-ans-main">Sponsors subsidize the cash reward pools.</span>
+            <span class="details-ans-sub">When you test new apps or complete partner tasks, sponsors pay a fee. We share this budget directly with you as cash and gift card payouts.</span>
+          </div>
+        </details>
+
+        <details id="faqDealsTier">
+          <summary>Why do more deals equal bigger payouts?</summary>
+          <div class="details-content">
+            <span class="details-ans-main">Higher engagement unlocks higher budget tiers.</span>
             <span class="details-ans-sub" id="faqTierText">Completing 2 deals triggers base rewards ($80), while completing up to 25 deals triggers our highest tier ($1,000).</span>
           </div>
         </details>
@@ -418,7 +473,7 @@
     </section>
 
     <div class="rating" id="ratingText">⭐️ 4.9/5 • 24,180 members unlocked payouts this week</div>
-    <p class="foot">©2026 dealsrewardshub.com</p>
+    <p class="foot">©2026 shnoffers.com</p>
   </div>
 
 <script>
@@ -487,30 +542,31 @@
         renderScrollingVouches(formatVouches(rawCpaGripVouches, currencySym));
         
         showGeoModal(
-          "REGION UPDATE 📍",
-          "Offer Region Update", 
-          `📍 We unlocked <strong>Teststar Game & App Deals</strong> for your region! Play games, complete tasks, and earn 💸`
+          "REGION NOTICE 📍",
+          "SHEIN Offer Not Available", 
+          `SHEIN promotional deals are currently unavailable in your country.<br><br>However, you can complete quick mobile app trials, play games, and enter your email to claim direct cash rewards to your PayPal account! 💸`
         );
       } 
-      // 3) ALL OTHER COUNTRIES (ROW) -> CPAGRIP SMARTLINK (Netflix Black/Red Theme)
+      // 3) ALL OTHER COUNTRIES (ROW) -> CPAGRIP SMARTLINK
       else {
         targetAffiliateLink = LINK_CPAGRIP_SMARTLINK;
         applyCpaGripLayoutEngine(currencySym);
         renderScrollingVouches(formatVouches(rawCpaGripVouches, currencySym));
         
         showGeoModal(
-          "LOCAL DEALS UNLOCKED 🎁",
-          "Regional Deals Active", 
-          `📍 Complete available <strong>Free Deals & Mobile Tasks</strong> for your country! The more deals you complete, the higher your reward payout! 💸`
+          "REGION NOTICE 📍",
+          "SHEIN Offer Not Available", 
+          `SHEIN promotional deals are currently unavailable in your country.<br><br>However, you can complete quick mobile app trials, play games, and enter your email to claim direct cash rewards to your PayPal account! 💸`
         );
       }
     } catch (error) {
-      // Fallback to Smartlink with $ on error
+      // Fallback on error
       targetAffiliateLink = LINK_CPAGRIP_SMARTLINK;
       applyCpaGripLayoutEngine("$");
       renderScrollingVouches(formatVouches(rawCpaGripVouches, "$"));
     } finally {
       document.body.classList.add('loaded');
+      initTickerDoubleTapControls();
     }
   }
 
@@ -535,7 +591,7 @@
       <div class="step"><div class="ico">🎁</div><div><h3>3. Get your reward</h3><p>Once verified, your code is processed. Done and dusted!</p></div></div>
     `;
 
-    document.getElementById("promoValueMessage").textContent = `💡 Tier Unlock: Complete 2 deals (${sym}80), 5 deals (${sym}250), or unlock up to 25 deals to claim the ${sym}1,000 Grand Reward!`;
+    updateTierLabels(sym);
     document.getElementById("faqTierText").textContent = `Completing 2 deals triggers base rewards (${sym}80), while completing up to 25 deals triggers our highest tier (${sym}1,000).`;
     document.getElementById("promoSocialHeader").textContent = "Live Verified Rewards";
     document.getElementById("ratingText").textContent = "⭐️ 4.9/5 • 18,410 people claimed rewards this week";
@@ -565,7 +621,7 @@
       <div class="step"><div class="ico">💸</div><div><h3>3. Instant PayPal Transfer</h3><p>Claim identical cash tiers! Complete 2 deals (${sym}80) up to 25 deals (${sym}1,000) directly to PayPal.</p></div></div>
     `;
 
-    document.getElementById("promoValueMessage").textContent = `💡 Complete 2 deals (${sym}80), 5 deals (${sym}250), or 25 deals for ${sym}1,000 Direct PayPal Cash!`;
+    updateTierLabels(sym);
     document.getElementById("faqTierText").textContent = `Completing 2 deals triggers base rewards (${sym}80), while completing up to 25 deals triggers our highest tier (${sym}1,000).`;
     document.getElementById("promoSocialHeader").textContent = "Live Verified Cash Payouts";
     document.getElementById("ratingText").textContent = "⭐️ 4.9/5 • 19,290 players earned cash rewards this week";
@@ -573,8 +629,14 @@
 
   /* CPAGRIP SMARTLINK LAYOUT ENGINE */
   function applyCpaGripLayoutEngine(sym) {
-    document.getElementById("promoValueMessage").textContent = `🔥 More Deals = Higher Cashouts: Complete 2 deals (${sym}80), 5 deals (${sym}250), or clear 25 deals to claim the ${sym}1,000 Tier!`;
+    updateTierLabels(sym);
     document.getElementById("faqTierText").textContent = `Completing 2 deals triggers base rewards (${sym}80), while completing up to 25 deals triggers our highest tier (${sym}1,000).`;
+  }
+
+  function updateTierLabels(sym) {
+    document.getElementById("tier1Val").textContent = `${sym}80 Payout`;
+    document.getElementById("tier2Val").textContent = `${sym}250 Payout`;
+    document.getElementById("tier3Val").textContent = `${sym}1,000 Grand Tier`;
   }
 
   function renderScrollingVouches(items) {
@@ -588,6 +650,28 @@
       </div>
     `).join('');
     track.innerHTML = `<div class="vouch-group">${singleGroupHTML}</div><div class="vouch-group" aria-hidden="true">${singleGroupHTML}</div>`;
+  }
+
+  /* DOUBLE TAP TO PAUSE / UNPAUSE TICKER (Prevents accidental touch-stopping while scrolling) */
+  function initTickerDoubleTapControls() {
+    const viewport = document.getElementById("vouchViewport");
+    const track = document.getElementById("vouchTrack");
+    if(!viewport || !track) return;
+
+    let lastTap = 0;
+    viewport.addEventListener('touchend', function(e) {
+      const currentTime = new Date().getTime();
+      const tapLength = currentTime - lastTap;
+      if (tapLength < 300 && tapLength > 0) {
+        track.classList.toggle('paused');
+        e.preventDefault();
+      }
+      lastTap = currentTime;
+    });
+
+    viewport.addEventListener('dblclick', function() {
+      track.classList.toggle('paused');
+    });
   }
 
   function showGeoModal(badgeText, title, htmlText) {
