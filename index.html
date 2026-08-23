@@ -33,7 +33,7 @@
     --payout-border: rgba(229, 9, 20, 0.4);
   }
 
-  /* Shein Specific Theme Overrides (US/UK/AU/CA) */
+  /* Shein Specific Theme Overrides (US/UK/AU/CA/NP) */
   body.theme-shein {
     --bg: #f8f8f8;
     --card: #ffffff;
@@ -57,6 +57,12 @@
     --payout-bg: rgba(0, 200, 83, 0.12);
     --payout-color: #00a843;
     --payout-border: rgba(0, 200, 83, 0.25);
+  }
+
+  /* TesterHeld CPI (DE/CH/AT) — same Teststar family, slightly darker */
+  body.theme-testerheld {
+    --bg: #05070B;
+    --card: #121218;
   }
 
   /* Teststar CPI Theme Overrides (EU/Nordics) */
@@ -312,6 +318,81 @@
   .rating{text-align:center;font-weight:700;color:var(--ink);margin:24px 0 8px;font-size:13px;letter-spacing:0.2px}
   .foot{font-size:11px;color:var(--grey-dark);text-align:center;margin:16px 0;letter-spacing:0.5px}
 
+  /* SHEIN PAYOUT TABLE — hidden unless theme-shein (US/UK/CA/AU/NP) */
+  .shein-payout-card { display: none; }
+  body.theme-shein .shein-payout-card {
+    display: block;
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 16px;
+    box-shadow: var(--shadow);
+    padding: 20px;
+    margin: 16px 0;
+  }
+  body.theme-shein .shein-payout-card h2 {
+    margin: 0 0 6px;
+    text-align: center;
+    color: var(--ink);
+    font-size: 18px;
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+  body.theme-shein .shein-payout-sub {
+    margin: 0 0 14px;
+    text-align: center;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--grey-dark);
+  }
+  body.theme-shein .shein-tier-table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0;
+    overflow: hidden;
+    border-radius: 14px;
+    border: 1px solid var(--line);
+    background: #ffffff;
+  }
+  body.theme-shein .shein-tier-table th,
+  body.theme-shein .shein-tier-table td {
+    padding: 9px 12px;
+    font-size: 12px;
+    text-align: center;
+  }
+  body.theme-shein .shein-tier-table th {
+    font-size: 10px;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    background: var(--grey-light);
+  }
+  body.theme-shein .shein-tier-table th:first-child,
+  body.theme-shein .shein-tier-table td:first-child {
+    border-right: 1px solid var(--line);
+  }
+  body.theme-shein .shein-tier-table td {
+    font-weight: 700;
+    color: var(--ink);
+    border-top: 1px solid var(--line);
+    background: #ffffff;
+  }
+  body.theme-shein .shein-tier-table td:last-child {
+    color: var(--payout-color);
+    background: var(--payout-bg);
+  }
+  body.theme-shein .shein-tier-table tr.is-top td {
+    background: rgba(0, 168, 67, 0.10);
+    color: var(--ink);
+  }
+  body.theme-shein .shein-tier-table tr.is-top td:last-child {
+    color: var(--payout-color);
+    font-weight: 800;
+    background: rgba(0, 168, 67, 0.10);
+  }
+  body.theme-shein #promoValueBox { display: none; }
+
   /* MODAL */
   .modal-overlay {
     position: fixed; top: 0; left: 0; right: 0; bottom: 0;
@@ -375,6 +456,28 @@
         <p class="blurb" id="promoBlurb">The more deals you finish, the higher payout tiers you unlock!</p>
       </div>
       <a href="#" class="cta" id="promoCTA" onclick="routeOffer();return false;">Start Complete Deals</a>
+    </section>
+
+    <!-- SHEIN PAYOUT TABLE (US/UK/CA/AU/NP only — hidden unless body.theme-shein) -->
+    <section class="shein-payout-card" id="sheinPayoutCard">
+      <h2>How Much You Get</h2>
+      <p class="shein-payout-sub">After you complete the deals</p>
+      <table class="shein-tier-table" aria-label="Shein gift card amounts by deals completed">
+        <thead>
+          <tr>
+            <th>Deals</th>
+            <th>Shein Card</th>
+          </tr>
+        </thead>
+        <tbody id="sheinTierBody">
+          <tr><td>2</td><td class="shein-tier-amt">$5</td></tr>
+          <tr><td>5</td><td class="shein-tier-amt">$100</td></tr>
+          <tr><td>10</td><td class="shein-tier-amt">$250</td></tr>
+          <tr><td>15</td><td class="shein-tier-amt">$500</td></tr>
+          <tr><td>20</td><td class="shein-tier-amt">$750</td></tr>
+          <tr class="is-top"><td>25</td><td class="shein-tier-amt">$1,000</td></tr>
+        </tbody>
+      </table>
     </section>
 
     <!-- HOW IT WORKS -->
@@ -472,21 +575,42 @@
       </div>
     </section>
 
-    <div class="rating" id="ratingText">⭐️ 4.9/5 • 24,180 members unlocked payouts this week</div>
-    <p class="foot">©2026 shnoffers.com</p>
+    <div class="rating" id="ratingText">⭐️ 4.9/5 • 2180 members unlocked payouts this week</div>
+    <p class="foot">©2026 shndeals.com</p>
   </div>
 
 <script>
   /* --- TARGET OFFER LINKS --- */
   const LINK_SHEIN = "https://trksy.org/aff_c?offer_id=1836&aff_id=22290"; 
-  const LINK_TESTSTAR_CPI = "https://taprkr.com/r/eyJ0IjoidGVzdHN0YXIiLCJ0aWQiOiIwY2NmODNkMDllMzYwNjUxMTJmNiIsInRzIjoxNzg2NDU1MzI4ODE3fQ";
+  const LINK_TESTSTAR_CPI = "https://taprkr.com/r/eyJ0IjoidGVzdHN0YXIiLCJ0aWQiOiIwY2NmODNkMDllMzYwNjUxMTJmNiIsInRzIjoxNzg1MzQxNjgyOTEzfQ";
+  const LINK_TESTERHELD_CPI = "https://taprkr.com/r/eyJ0IjoidGVzdGVyaGVsZC1jcGkiLCJ0aWQiOiIwY2NmODNkMDllMzYwNjUxMTJmNiIsInRzIjoxNzg3NDA2NzI2NTcwfQ";
   const LINK_CPAGRIP_SMARTLINK = "https://playabledownloads.com/1906946"; 
 
   /* --- TARGET GEO GROUPS --- */
-  const SHEIN_COUNTRIES = ["US", "GB", "UK", "AU", "CA"];
+  const SHEIN_COUNTRIES = ["US", "GB", "UK", "AU", "CA", "NP"];
   const TESTSTAR_COUNTRIES = ["FR", "BE", "NL", "SE", "DK", "FI", "LU", "IS", "NO", "IE"];
+  const TESTERHELD_DACH_COUNTRIES = ["DE", "CH", "AT"];
   const EURO_COUNTRIES = ["FR", "BE", "NL", "FI", "LU", "IE", "SE", "DK", "NO", "IS"];
   const POUND_COUNTRIES = ["GB", "UK"];
+
+  const SHEIN_TIERS = {
+    USD: [
+      { deals: 2, amount: 5 },
+      { deals: 5, amount: 100 },
+      { deals: 10, amount: 250 },
+      { deals: 15, amount: 500 },
+      { deals: 20, amount: 750 },
+      { deals: 25, amount: 1000 }
+    ],
+    GBP: [
+      { deals: 2, amount: 5 },
+      { deals: 5, amount: 75 },
+      { deals: 10, amount: 200 },
+      { deals: 15, amount: 400 },
+      { deals: 20, amount: 600 },
+      { deals: 25, amount: 800 }
+    ]
+  };
 
   let targetAffiliateLink = LINK_CPAGRIP_SMARTLINK;
   let currencySym = "$"; // Default currency
@@ -495,6 +619,19 @@
     if (POUND_COUNTRIES.includes(countryCode)) return "£";
     if (EURO_COUNTRIES.includes(countryCode)) return "€";
     return "$";
+  }
+
+  function getDachCurrency(countryCode) {
+    if (countryCode === "CH") return "CHF ";
+    return "€";
+  }
+
+  function getSheinTiers(sym) {
+    return sym === "£" ? SHEIN_TIERS.GBP : SHEIN_TIERS.USD;
+  }
+
+  function formatSheinAmount(sym, amount) {
+    return sym + amount.toLocaleString("en-US");
   }
 
   function formatVouches(items, symbol) {
@@ -526,10 +663,12 @@
       const data = await response.json();
       const countryCode = data && data.country_code ? data.country_code.toUpperCase() : "US";
 
-      // Detect & set localized currency symbol (£, €, or $)
-      currencySym = getCurrencySymbol(countryCode);
+      // Detect & set localized currency symbol (£, €, CHF, or $)
+      currencySym = TESTERHELD_DACH_COUNTRIES.includes(countryCode)
+        ? getDachCurrency(countryCode)
+        : getCurrencySymbol(countryCode);
 
-      // 1) Target Shein Countries (US, GB/UK, AU, CA)
+      // 1) Target Shein Countries (US, GB/UK, AU, CA, NP)
       if (SHEIN_COUNTRIES.includes(countryCode)) {
         targetAffiliateLink = LINK_SHEIN;
         applySheinLayoutEngine(currencySym);
@@ -546,8 +685,20 @@
           "SHEIN Offer Not Available", 
           `SHEIN promotional deals are currently unavailable in your country.<br><br>However, you can complete quick mobile app trials, play games, and enter your email to claim direct cash rewards to your PayPal account! 💸`
         );
-      } 
-      // 3) ALL OTHER COUNTRIES (ROW) -> CPAGRIP SMARTLINK
+      }
+      // 3) TesterHeld CPI — DACH (DE, CH, AT)
+      else if (TESTERHELD_DACH_COUNTRIES.includes(countryCode)) {
+        targetAffiliateLink = LINK_TESTERHELD_CPI;
+        applyTesterHeldLayoutEngine(currencySym);
+        renderScrollingVouches(formatVouches(rawCpaGripVouches, currencySym));
+
+        showGeoModal(
+          "REGION NOTICE 📍",
+          "SHEIN Offer Not Available",
+          `SHEIN promotional deals are currently unavailable in your country.<br><br>However, you can complete quick mobile app trials, play games, and enter your email to claim direct cash rewards to your PayPal account! 💸`
+        );
+      }
+      // 4) ALL OTHER COUNTRIES (ROW) -> CPAGRIP SMARTLINK
       else {
         targetAffiliateLink = LINK_CPAGRIP_SMARTLINK;
         applyCpaGripLayoutEngine(currencySym);
@@ -592,7 +743,11 @@
     `;
 
     updateTierLabels(sym);
-    document.getElementById("faqTierText").textContent = `Completing 2 deals triggers base rewards (${sym}80), while completing up to 25 deals triggers our highest tier (${sym}1,000).`;
+    localizeSheinPayoutTable(sym);
+    const sheinTiers = getSheinTiers(sym);
+    const sheinBase = formatSheinAmount(sym, sheinTiers[0].amount);
+    const sheinTop = formatSheinAmount(sym, sheinTiers[sheinTiers.length - 1].amount);
+    document.getElementById("faqTierText").textContent = `Completing 2 deals triggers base rewards (${sheinBase}), while completing up to 25 deals triggers our highest tier (${sheinTop}).`;
     document.getElementById("promoSocialHeader").textContent = "Live Verified Rewards";
     document.getElementById("ratingText").textContent = "⭐️ 4.9/5 • 18,410 people claimed rewards this week";
   }
@@ -627,6 +782,38 @@
     document.getElementById("ratingText").textContent = "⭐️ 4.9/5 • 19,290 players earned cash rewards this week";
   }
 
+  /* TESTERHELD CPI LAYOUT ENGINE — DE / CH / AT */
+  function applyTesterHeldLayoutEngine(sym) {
+    document.body.classList.add('theme-teststar', 'theme-testerheld');
+    document.title = "TesterHeld - Spiele Games, teste Apps & verdiene Cash";
+
+    document.getElementById("promoHeader").textContent = "Spiele Mobile Games & verdiene echtes Geld 👇🏻";
+
+    const logo = document.getElementById("promoLogo");
+    logo.innerHTML = `
+      <svg viewBox="0 0 24 24"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      <span>TESTERHELD</span>
+    `;
+
+    document.getElementById("promoTitle").textContent = "TesterHeld Game & App Rewards";
+    document.getElementById("promoBlurb").textContent = "Spiele Featured Games, erreiche Level & zahle echtes Geld direkt auf PayPal aus!";
+    document.getElementById("promoCTA").textContent = "Jetzt Cash verdienen";
+
+    document.getElementById("howItWorksHeader").textContent = "So startest du";
+    document.getElementById("stepsContainer").innerHTML = `
+      <div class="step"><div class="ico">📱</div><div><h3>1. Aufgaben wählen</h3><p>Wähle schnelle Game-Tests oder einfache Online-Aufgaben in deinem Dashboard.</p></div></div>
+      <div class="step"><div class="ico">🎮</div><div><h3>2. Deals abschließen</h3><p>Schließe die gewählten Deals in einem Durchgang ab, damit das Tracking greift.</p></div></div>
+      <div class="step"><div class="ico">💸</div><div><h3>3. PayPal-Auszahlung</h3><p>Gleiche Cash-Tiers! 2 Deals (${sym}80) bis 25 Deals (${sym}1.000) direkt auf PayPal.</p></div></div>
+    `;
+
+    document.getElementById("tier1Val").textContent = `${sym}80 Auszahlung`;
+    document.getElementById("tier2Val").textContent = `${sym}250 Auszahlung`;
+    document.getElementById("tier3Val").textContent = `${sym}1.000 Top-Tier`;
+    document.getElementById("faqTierText").textContent = `2 Deals schalten die Basis (${sym}80) frei, bis zu 25 Deals das Top-Tier (${sym}1.000).`;
+    document.getElementById("promoSocialHeader").textContent = "Live verifizierte Auszahlungen";
+    document.getElementById("ratingText").textContent = "⭐️ 4.9/5 • 19.290 Spieler haben diese Woche Cash verdient";
+  }
+
   /* CPAGRIP SMARTLINK LAYOUT ENGINE */
   function applyCpaGripLayoutEngine(sym) {
     updateTierLabels(sym);
@@ -637,6 +824,17 @@
     document.getElementById("tier1Val").textContent = `${sym}80 Payout`;
     document.getElementById("tier2Val").textContent = `${sym}250 Payout`;
     document.getElementById("tier3Val").textContent = `${sym}1,000 Grand Tier`;
+  }
+
+  function localizeSheinPayoutTable(sym) {
+    const tiers = getSheinTiers(sym);
+    document.querySelectorAll("#sheinTierBody tr").forEach((tr, i) => {
+      const t = tiers[i];
+      if (!t) return;
+      tr.cells[0].textContent = t.deals;
+      const amt = tr.querySelector(".shein-tier-amt");
+      if (amt) amt.textContent = formatSheinAmount(sym, t.amount);
+    });
   }
 
   function renderScrollingVouches(items) {
